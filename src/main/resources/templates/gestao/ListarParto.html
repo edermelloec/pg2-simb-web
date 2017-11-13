@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-10">
+						<h1>Partos</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+
+
+			<div class="table-responsive">
+				<table id="tabela-produtos"
+					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					<thead class="aw-table-header-solid">
+						<tr class="table-pesq-bovino-col-center">
+
+							<th class="table-pesq-bovino-col-center">Data Parto</th>
+							<th class="table-pesq-bovino-col-center">Matriz</th>
+							<th class="table-pesq-bovino-col-center">Descrição</th>
+							<th class="table-pesq-bovino-col-center">-</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="p : ${partos} ">
+
+							<td class="table-pesq-bovino-col-center"
+								th:text="${#dates.format(p.dataParto, 'dd/MM/yyyy')}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${p.idFichaMatriz}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${p.descricao}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${p.status}"></td>
+
+
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+
+
+		</div>
+
+	</section>
+</body>
+</html>

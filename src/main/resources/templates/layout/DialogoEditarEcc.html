@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="modal fade" id="editarEccModal"  tabindex="-1" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog modal-sm">
+		<form class="form-vertical  js-form-loading"  method="POST"  th:attr="data-url-base=@{/bovinos}">
+			<input type="hidden" name="_method" value="PUT"/>
+			
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Editar </h4>
+				</div>
+				
+				<div class="modal-body">
+					<div class="row">
+<!-- 						<input  id="idECC" name="idECC" type="hidden" class="form-control ecc_id" /> -->
+						<input type="hidden"  id="idECC" name="idECC"  class="form-control ecc_id"  />
+					
+						<input type="hidden" id="dataInclusao" name="dataInclusao" class="form-control ecc_data" />
+					
+						
+						<div class="form-group" name="status" >
+								<input id="status"  type="hidden" class="form-control ecc_status"  />
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+							<label for="recipient-name" class="control-label">Ecc:</label>
+<!-- 		                        <input type="text"  id="escore" name="escore" class="form-control ecc_escore" th:field="*{escore}" placeholder="Digite o Novo Ecc.." /> -->
+		                        <select class="form-control ecc_escore" name="escore" >
+										<option th:each="ecc : ${todosEccs}" th:value="${ecc.escore}" th:text="${ecc.escore}"></option>
+	                    		</select>
+		                    </div>
+	                    </div>
+                    </div>               
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Alterar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	
+</html>

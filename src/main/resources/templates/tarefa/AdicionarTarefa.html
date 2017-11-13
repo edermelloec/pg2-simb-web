@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>Adicionar Tarefa</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+		
+		    	
+
+<!-- 			<div class="alert  alert-danger  alert-dismissible" role="alert"> -->
+<!-- 				<button type="button" class="close" data-dismiss="alert" -->
+<!-- 					aria-label="Close"> -->
+<!-- 					<span aria-hidden="true">&times;</span> -->
+<!-- 				</button> -->
+<!-- 				<i class="fa  fa-exclamation-circle"></i> Já existe um bovino com o -->
+<!-- 				nome informado. -->
+<!-- 			</div> -->
+
+			<form class="form-vertical  js-form-loading" method="POST" action="/tarefas" th:action="@{/tarefas}" th:object="${tarefa}">
+				<div layout:include="layout/MensagemGeral"></div>
+    			<div layout:include="layout/MensagemErro"></div>
+				
+				<div class="row">
+				<input type="hidden" th:field="*{idTarefa}"/>
+<!-- 				<input type="hidden" th:field="*{bovinoMatriz}"/> -->
+				
+					<div class="col-sm-4">
+					
+							<div class="form-group" name="bovinoMatriz" >
+								<input id="bovinoMatriz"  type="hidden" class="form-control" th:field="*{bovinoMatriz.idBovino}" />
+							</div>
+							
+							<div class="form-group">
+								<label for="bovinoMatriz.nomeBovino">Nome Bovino</label> 
+								<input id="bovinoMatriz.nomeBovino" type="text" class="form-control" th:field="*{bovinoMatriz.nomeBovino}" disabled="disabled" />
+							</div>
+					</div>
+				</div>
+				
+				
+			
+				<div class="row">
+				<div class="col-sm-3">
+					<div class="form-group ">
+						<label for="tipoTarefa">Tipo da Tarefa</label> 
+							<select class="form-control" name="tipoTarefa" th:field="*{tipoTarefa}" >
+									<option th:each="tipoTarefa : ${todosTiposTarefa}" th:value="${tipoTarefa}"  th:text="${tipoTarefa.descricao}"  ></option>
+                    		</select>
+		            </div>
+		            
+		            <div class="form-group ">
+						<label for="tipoTarefa">Funcionário</label> 
+							<select class="form-control" name="imei" >
+									<option th:each="funcionario : ${todosFuncionarios}" th:value="${funcionario.imei}" th:text="${funcionario.nome}"  ></option>
+                    		</select>
+		            </div>
+				</div>
+				</div>
+
+
+
+					
+				
+
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Adicionar</button>
+					<a th:href="@{/bovinos}" class="btn  btn-default">Cancelar</a> 
+				</div>
+
+			</form>
+		</div>
+
+	</section>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-10">
+						<h1>Inseminações</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+
+
+			<div class="table-responsive">
+				<table id="tabela-produtos"
+					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					<thead class="aw-table-header-solid">
+						<tr class="table-pesq-bovino-col-center">
+
+							<th class="table-pesq-bovino-col-center">Data Inseminação</th>
+							<th class="table-pesq-bovino-col-center">Data Previsão do
+								Parto</th>
+							<th class="table-pesq-bovino-col-center">Tipo</th>
+							<th class="table-pesq-bovino-col-center">Funcionario</th>
+							<th class="table-pesq-bovino-col-center">Touro</th>
+							<th class="table-pesq-bovino-col-center">Matriz</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ins : ${inseminacoes} ">
+
+							<td class="table-pesq-bovino-col-center"
+								th:text="${#dates.format(ins.dataDaInseminacao, 'dd/MM/yyyy')}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${#dates.format(ins.previsaoParto, 'dd/MM/yyyy')}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${ins.monta} ? 'Monta' : 'Inseminaçao' "></td>
+							<td class="table-pesq-bovino-col-center"
+								th:switch="${ins.imei}">
+								<p th:case="'354983059791193'">Sebastiao</p>
+								<p th:case="*">
+									<b>Sem Registro</b>
+								</p>
+							</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${ins.touro}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${ins.matriz}"></td>
+
+
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+
+
+		</div>
+
+	</section>
+</body>
+</html>

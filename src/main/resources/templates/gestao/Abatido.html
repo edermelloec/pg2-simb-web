@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>Registrar Bovino Abatido</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<form class="form-horizontal" method="POST" action="/gestao/abatido"
+				th:action="@{/gestao/abatido}" th:object="${abatido}">
+				<div layout:include="layout/MensagemGeral"></div>
+				<div layout:include="layout/MensagemErro"></div>
+
+
+
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label>Bovino</label> <select class="form-control" name="idBovino">
+									<option th:each="bovino : ${bovinos}"
+										th:value="${bovino.idBovino}" th:text="${bovino.nomeBovino}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label for="dataAbate">Data Abate</label> <input id="dataAbate"
+									name="dataAbate" type="text" class="form-control"
+									th:field="*{dataAbate}" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label for="peso">Peso</label> <input id="peso" name="peso"
+									type="text" class="form-control" th:field="*{peso}" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+					<div class="col-sm-3">
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label for="descricao">Descrição</label> <input id="descricao"
+									name="descricao" type="text" class="form-control"
+									th:field="*{descricao}" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				</div>
+				
+				<div class="col-sm-6">
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</section>
+</body>
+</html>

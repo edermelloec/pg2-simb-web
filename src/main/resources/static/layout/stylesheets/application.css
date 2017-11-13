@@ -1,0 +1,73 @@
+.table-pesq-produto-col-preco {
+	min-width: 130px;
+	text-align: center;
+	display: none !important;
+}
+
+@media ( min-width : 992px) {
+	.table-pesq-produto-col-preco {
+		display: block !important;
+	}
+	table.table-pesq-produto-col-preco {
+		display: table !important;
+	}
+	tr.table-pesq-produto-col-preco {
+		display: table-row !important;
+	}
+	th.table-pesq-produto-col-preco, td.table-pesq-produto-col-preco {
+		display: table-cell !important;
+	}
+}
+
+.table-pesq-produto-col-estoque {
+	min-width: 100px;
+	text-align: center;
+	display: none !important;
+}
+
+@media ( min-width : 992px) {
+	.table-pesq-produto-col-estoque {
+		display: block !important;
+	}
+	table.table-pesq-produto-col-estoque {
+		display: table !important;
+	}
+	tr.table-pesq-produto-col-estoque {
+		display: table-row !important;
+	}
+	th.table-pesq-produto-col-estoque, td.table-pesq-produto-col-estoque {
+		display: table-cell !important;
+	}
+}
+
+td.table-pesq-produto-col-nome {
+	min-width: 305px;
+	text-align: center;
+}
+
+.table-pesq-produto-col-raca {
+	text-align: center;
+}
+
+.table-pesq-produto-col-status {
+	text-align: center;
+}
+
+.table-pesq-produto-col-acoes {
+	text-align: center;
+}
+
+.table-pesq-bovino-col-center {
+	
+	
+	text-align: center;
+}
+
+.table-alter-bovino-col-center {
+	min-width: 105px;
+	text-align: center;
+}
+.panel-default{
+	margin-left: 10px;
+	margin-right: 10px;
+}

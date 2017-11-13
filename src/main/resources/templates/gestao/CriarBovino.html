@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>Cadastrar Bovino</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+
+
+			<form class="form-vertical  js-form-loading" method="POST"
+				action="/gestao/novoBovino" th:action="@{/gestao/novoBovino}" th:object="${bovino}">
+				<div layout:include="layout/MensagemGeral"></div>
+				<div layout:include="layout/MensagemErro"></div>
+
+
+				<div class="row">
+					
+					 
+					<input type="hidden" th:field="*{idBovino}" />
+					<div class="form-group">
+						<input id="urlFoto" name="urlFoto" type="hidden"
+							class="form-control" th:field="*{urlFoto}" />
+					</div>
+
+					<div class="form-group">
+						<input id="fichaMatriz" name="fichaMatriz" type="hidden"
+							class="form-control" th:field="*{fichaMatriz.idFichaMatriz}" />
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label>Tag</label> <input id="tag" name="tag" type="text"
+								class="form-control" th:field="*{tag}"/>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-group"
+							>
+							<label for="nomeBovino">Nome do Bovino</label> <input
+								id="nomeBovino" name="nomeBovino" type="text" th:field="*{nomeBovino}"
+								class="form-control" />
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="dataNascimento">Data Nascimento</label> <input
+								id="dataNascimento" name="dataNascimento" type="text"
+								class="form-control" th:field="*{dataNascimento}" />
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="input-produto-nome">Gênero</label> <select
+								class="form-control" name="genero" th:field="*{genero}">
+								<option th:each="genero : ${todosGenerosBovino}"
+									th:value="${genero}" th:text="${genero} ? 'Macho' : 'Fêmea' "></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="raca">Raça</label> <select class="form-control"
+								name="raca" th:field="*{raca.idRaca}">
+								<option th:each="raca : ${todasRacasBovino}"
+									th:value="${raca.idRaca}" th:text="${raca.nomeRaca}"
+									th:selected="*{raca.idRaca}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="input-produto-nome">Pelagem</label> <select
+								class="form-control" name="pelagem"
+								th:field="*{pelagem.idPelagem}">
+								<option th:each="pelagem : ${todasPelagemsBovino}"
+									th:value="${pelagem.idPelagem}"
+									th:text="${pelagem.nomePelagem}"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="pai">Nome Pai</label> <input id="pai" name="pai"
+								type="text" class="form-control" th:field="*{pai}"/>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="mae">Nome Mae</label> <input id="mae" name="mae"
+								type="text" class="form-control" th:field="*{mae}" />
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="fazenda">Fazenda</label> <select class="form-control"
+								name="fazenda" th:field="*{fazenda.idFazenda}">
+								<option th:each="fazenda : ${todasFazendasBovino}"
+									th:value="${fazenda.idFazenda}"
+									th:text="${fazenda.nomeFazenda}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="proprietario">Proprietário</label> <select
+								class="form-control" name="proprietario"
+								th:field="*{proprietario.idProprietario}">
+								<option th:each="proprietario : ${todosProprietariosBovino}"
+									th:value="${proprietario.idProprietario}"
+									th:text="${proprietario.nomeProprietario}"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+
+				
+
+
+
+
+
+
+
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+
+				</div>
+
+			</form>
+			<div layout:include="/layout/DialogoConfirmacaoExclusaoBovino"></div>
+			<div layout:include="/layout/DialogoEditarEcc"></div>
+			<div layout:include="/layout/DialogoEditarPeso"></div>
+		</div>
+
+	</section>
+</body>
+</html>

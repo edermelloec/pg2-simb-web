@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+			
+				<div class="row">
+					<div class="col-xs-10">
+						<h1>Tarefas</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+
+					<a class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/adicionar/inseminacao}">Inseminação</a> <a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/adicionar/gestacao}">Diagnostico de
+						Gestação</a> <a class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/adicionar/parto}">Parto</a> <a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/adicionar/criarBovino}">Cadastrar Bovino</a> <a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/adicionar/morte}">Morte Bovino</a> <a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/adicionar/desmama}">Salvar Desmama</a> <a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/adicionar/pesagem}">Salvar Pesagem</a> <a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/adicionar/ecc}">Salvar Ecc</a> <a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/adicionar/matriz}">Inserir Matriz</a>
+
+
+					<div class="panel-heading row">
+
+						<a class="btn btn-primary aw-link-panel"
+							th:href="@{/gestao/adicionar/touro}">Inserir Touro</a> <a
+							class="btn btn-primary aw-link-panel"
+							th:href="@{/gestao/adicionar/vendido}">Inserir Venda</a> <a
+							class="btn btn-primary aw-link-panel"
+							th:href="@{/gestao/adicionar/abatido}">Inserir Abatido</a>
+					</div>
+
+
+
+
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+
+	</section>
+</body>
+</html>

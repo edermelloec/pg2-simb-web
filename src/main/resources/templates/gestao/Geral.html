@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-10">
+						<h1>Gestão de Dados - Geral</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+
+					<a class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/desmama}">Idade Desmama</a> <a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/primeiraCria}">Idade Primeira Cria</a>
+						<a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/desfrute}">Taxa de Desfrute</a>
+						<a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/finalizadas}">Outros</a>
+				</div>
+			</div>
+
+
+
+			<div class="table-responsive">
+				<table id="tabela-produtos"
+					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+
+					<thead class="aw-table-header-solid">
+						<tr class="table-pesq-bovino-col-center">
+							<th class="table-pesq-bovino-col-center">Índices Zootécnicos</th>
+							<th class="table-pesq-bovino-col-center">Taxa</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="tv : ${touroVaca}">
+							<td class="table-pesq-bovino-col-center">Touro : Matriz</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${tv.nome}|"></td>
+						</tr>
+						<tr th:each="ft : ${fertilidadeTotal}">
+							<td class="table-pesq-bovino-col-center">Fertilidade total</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${ft.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="fp : ${fertilidadePrimi}">
+							<td class="table-pesq-bovino-col-center">Fertilidade
+								primíparas</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${fp.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="fv : ${fertilidadeNovi}">
+							<td class="table-pesq-bovino-col-center">Fertilidade novilha</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${fv.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="fm : ${fertilidadeMult}">
+							<td class="table-pesq-bovino-col-center">Fertilidade
+								multíparas</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${fm.fertilidade}%|"></td>
+						</tr>
+
+						<tr th:each="nt : ${natalidadeTotal}">
+							<td class="table-pesq-bovino-col-center">Natalidade total</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${nt.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="np : ${natalidadePrimi}">
+							<td class="table-pesq-bovino-col-center">Natalidade
+								primíparas</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${np.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="nn : ${natalidadeNovi}">
+							<td class="table-pesq-bovino-col-center">Natalidade novilha</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${nn.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="nm : ${natalidadeMult}">
+							<td class="table-pesq-bovino-col-center">Natalidade
+								multíparas</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${nm.fertilidade}%|"></td>
+						</tr>
+
+						<tr th:each="mt : ${motalidadeTotal}">
+							<td class="table-pesq-bovino-col-center">Mortalidade total</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${mt.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="mpp : ${motalidadePreParto}">
+							<td class="table-pesq-bovino-col-center">Mortalidade pre
+								parto</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${mpp.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="md : ${motalidadeDesmama}">
+							<td class="table-pesq-bovino-col-center">Mortalidade até
+								desmama</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${md.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="mj : ${motalidadeJovens}">
+							<td class="table-pesq-bovino-col-center">Mortalidade jovens
+								(1 a 2 anos)</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${mj.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="ma : ${motalidadeAdulto}">
+							<td class="table-pesq-bovino-col-center">Mortalidade adulto</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${ma.fertilidade}%|"></td>
+						</tr>
+
+
+						<tr th:each="d : ${desmama}">
+							<td class="table-pesq-bovino-col-center">Desmama</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${d.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="a : ${abate}">
+							<td class="table-pesq-bovino-col-center">Abate</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${a.fertilidade}%|"></td>
+						</tr>
+						<tr th:each="de : ${desfrute}">
+							<td class="table-pesq-bovino-col-center">Desfrute</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${de.fertilidade}%|"></td>
+						</tr>
+
+
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

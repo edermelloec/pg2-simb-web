@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>Alterar Bovino</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+			<!-- 			<div class="alert  alert-danger  alert-dismissible" role="alert"> -->
+			<!-- 				<button type="button" class="close" data-dismiss="alert" -->
+			<!-- 					aria-label="Close"> -->
+			<!-- 					<span aria-hidden="true">&times;</span> -->
+			<!-- 				</button> -->
+			<!-- 				<i class="fa  fa-exclamation-circle"></i> Já existe um bovino com o -->
+			<!-- 				nome informado. -->
+			<!-- 			</div> -->
+
+			<form class="form-vertical  js-form-loading" method="POST"
+				action="/bovinos" th:action="@{/bovinos}" th:object="${bovino}">
+				<div layout:include="layout/MensagemGeral"></div>
+				<div layout:include="layout/MensagemErro"></div>
+
+
+				<div class="row">
+					<input type="hidden" th:field="*{idBovino}" />
+
+					<div class="form-group" name="urlFoto">
+						<input id="urlFoto" type="hidden" class="form-control"
+							th:field="*{urlFoto}" />
+					</div>
+
+					<div class="form-group" name="fichaMatriz">
+						<input id="fichaMatriz" type="hidden" class="form-control"
+							th:field="*{fichaMatriz.idFichaMatriz}" />
+					</div>
+
+					<div class="form-group" name="tag">
+						<input id="tag" type="hidden" class="form-control"
+							th:field="*{tag}" />
+					</div>
+
+					
+
+
+					<div class="col-sm-4">
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('nomeBovino')} ? has-error">
+							<label for="nomeBovino">Nome do Bovino</label> <input
+								id="nomeBovino" type="text" class="form-control"
+								th:field="*{nomeBovino}" />
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="dataNascimento">Data Nascimento</label> <input
+								id="dataNascimento" type="text" class="form-control"
+								th:field="*{dataNascimento}" />
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="input-produto-nome">Gênero</label> <select
+								class="form-control" name="genero" th:field="*{genero}">
+								<option th:each="genero : ${todosGenerosBovino}"
+									th:value="${genero}" th:text="${genero} ? 'Macho' : 'Fêmea' "></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="raca">Raça</label> <select class="form-control"
+								name="raca" th:field="*{raca.idRaca}">
+								<option th:each="raca : ${todasRacasBovino}"
+									th:value="${raca.idRaca}" th:text="${raca.nomeRaca}"
+									th:selected="*{raca.idRaca}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="input-produto-nome">Pelagem</label> <select
+								class="form-control" name="pelagem"
+								th:field="*{pelagem.idPelagem}">
+								<option th:each="pelagem : ${todasPelagemsBovino}"
+									th:value="${pelagem.idPelagem}"
+									th:text="${pelagem.nomePelagem}"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="pai">Nome Pai</label> <input id="pai" type="text"
+								class="form-control" th:field="*{pai}" />
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="mae">Nome Mae</label> <input id="mae" type="text"
+								class="form-control" th:field="*{mae}" />
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="fazenda">Fazenda</label> <select class="form-control"
+								name="fazenda" th:field="*{fazenda.idFazenda}">
+								<option th:each="fazenda : ${todasFazendasBovino}"
+									th:value="${fazenda.idFazenda}"
+									th:text="${fazenda.nomeFazenda}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="proprietario">Proprietário</label> <select
+								class="form-control" name="proprietario"
+								th:field="*{proprietario.idProprietario}">
+								<option th:each="proprietario : ${todosProprietariosBovino}"
+									th:value="${proprietario.idProprietario}"
+									th:text="${proprietario.nomeProprietario}"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- <div class="form-group">
+					<div>
+						<label for="input-produto-nome">Matriz</label>
+					</div>
+					<div class="btn-group " data-toggle="buttons">
+
+						<label
+							th:class="${bovino.fichaMatriz} ? 'btn btn-primary notActive active' : 'btn btn-primary notActive'"
+							for="genero">Sim<input id="genero" th:value="*{genero}"
+							type="radio" name="options" autocomplete="off" /></label> <label
+							th:class="${bovino.fichaMatriz}  ? 'btn btn-primary notActive'  :  'btn btn-primary notActive active'">Não<input
+							id="genero" th:value="*{genero}" type="radio" name="options"
+							autocomplete="off" /></label>
+					</div>
+				</div> -->
+
+
+				<div class="row">
+					<div class="col-sm-4">
+
+						<div>
+							<label for="input-produto-nome"><h3>Tabela de ECCs</h3></label>
+						</div>
+						<table id="tabela-produtos"
+							class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+							<thead class="aw-table-header-solid">
+								<tr class="table-alter-bovino-col-center">
+									<th class="table-alter-bovino-col-center">Data</th>
+									<th class="table-alter-bovino-col-center">Escore</th>
+									<th class="table-alter-bovino-col-center">Ações</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="ecc : ${bovino.ecc} ">
+									<td class="table-pesq-bovino-col-center"
+										th:text="${#dates.format(ecc.dataInclusao, 'dd/MM/yyyy')}"></td>
+									<td class="table-pesq-bovino-col-center"
+										th:text="${ecc.escore}"></td>
+									<td class="table-alter-bovino-col-center">
+										<div class="btn-group">
+
+											<a class="btn  btn-default btn-xs" data-toggle="modal"
+												data-target="#editarEccModal"
+												th:attr="data-uri='editarEcc', 
+ 												data-descricao='o Ecc ' + ${ecc.escore},		  
+												data-id=${ecc.idECC}, 
+												data-dataInclusao=${ecc.dataInclusao}, 
+ 												data-status=${ecc.status},  
+												data-escore=${ecc.escore} ">
+												<span class="fa  fa-pencil"></span>
+											</a> <a class="btn  btn-default btn-xs" data-toggle="modal"
+												data-target="#confirmacaoExclusaoModal"
+												th:attr="data-codigo='ecc/'+${ecc.idECC}, data-descricao='o Ecc ' + ${ecc.escore} ">
+												<span class="fa  fa-trash"></span>
+											</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-sm-4">
+
+						<div>
+							<label for="input-produto-nome"><h3>Tabela de Pesos</h3></label>
+						</div>
+						<table id="tabela-produtos"
+							class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+							<thead class="aw-table-header-solid">
+								<tr class="table-alter-bovino-col-center">
+									<th class="table-alter-bovino-col-center">Data Pesagem</th>
+									<th class="table-pesq-bovino-col-center">Peso</th>
+									<th class="table-pesq-bovino-col-center">Ações</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr th:each="peso : ${bovino.peso} ">
+									<td class="table-pesq-bovino-col-center"
+										th:text="${#dates.format(peso.dataPesagem, 'dd/MM/yyyy')}"></td>
+									<td class="table-pesq-bovino-col-center"
+										th:text="${peso.peso} + ' Kg' "></td>
+									<td class="table-alter-bovino-col-center">
+										<div class="btn-group">
+											<a class="btn  btn-default btn-xs" data-toggle="modal"
+												data-target="#editarPesoModal"
+												th:attr="data-uri='editarPeso', 
+												data-descricao=${peso.peso} + ' Kg' , 
+												data-id=${peso.idPeso}, 
+												data-datainclusao=${peso.dataInclusao}, 
+												data-datapesagem=${peso.dataPesagem}, 
+												data-status=${peso.status}, 
+ 												data-peso=${peso.peso} ">
+												<span class="fa  fa-pencil"></span>
+											</a> <a class="btn  btn-default btn-xs" data-toggle="modal"
+												data-target="#confirmacaoExclusaoModal"
+												th:attr="data-codigo='peso/'+${peso.idPeso}, data-descricao='o Peso ' + ${peso.peso} ">
+												<span class="fa  fa-trash"></span>
+											</a>
+
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+					<a th:href="@{/bovinos}" class="btn  btn-default">Cancelar</a>
+					<!-- 					<a  class="btn  btn-link  aw-btn-link-danger" data-toggle="modal"  -->
+					<!-- 								data-target="#confirmacaoExclusaoModal" -->
+					<!-- 								th:attr="data-codigo=${bovino.idBovino}, data-descricao=${bovino.nomeBovino}">Excluir este Bovino -->
+					<!-- 					</a> -->
+
+					<!-- 					<div class="btn-group">	 -->
+					<!-- 						<a class="btn  btn-default btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal" -->
+					<!-- 									th:attr="data-codigo=${bovino.idBovino}, data-descricao=${bovino.nomeBovino}"> -->
+					<!-- 									<span class="fa  fa-trash"></span> -->
+					<!-- 								</a> -->
+					<!-- 								</div> -->
+				</div>
+
+			</form>
+			<div layout:include="/layout/DialogoConfirmacaoExclusaoBovino"></div>
+			<div layout:include="/layout/DialogoEditarEcc"></div>
+			<div layout:include="/layout/DialogoEditarPeso"></div>
+		</div>
+
+	</section>
+</body>
+</html>

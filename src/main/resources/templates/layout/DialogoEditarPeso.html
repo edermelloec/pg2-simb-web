@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="modal fade" id="editarPesoModal"  tabindex="-1" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog modal-sm">
+		<form class="form-vertical  js-form-loading"  method="POST"  th:attr="data-url-base=@{/bovinos}">
+			<input type="hidden" name="_method" value="PUT"/>
+			
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Editar </h4>
+				</div>
+
+				
+				<div class="modal-body">
+					<div class="row">
+						<input  name="idPeso" type="hidden" class="form-control peso_id" />
+					
+						<div class="form-group" name="dataInclusao" >
+								<input id="dataInclusao"  type="hidden" class="form-control peso_datainclusao"/>
+						</div>
+						
+						<div class="form-group" name="dataPesagem" >
+								<input id="dataPesagem"  type="hidden" class="form-control peso_datapesagem"  />
+						</div>
+						
+						<div class="form-group" name="status" >
+								<input id="status"  type="hidden" class="form-control peso_status"  />
+						</div>
+						
+						<div class="col-sm-8">
+							<div class="form-group">
+							<label for="recipient-name" class="control-label">Peso:</label>
+		                        <input type="text"  id="peso" name="peso" class="form-control peso_peso"   />
+		                    </div>
+	                    </div>
+                    </div>               
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Alterar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	
+</html>

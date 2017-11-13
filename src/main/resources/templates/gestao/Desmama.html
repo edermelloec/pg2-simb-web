@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-10">
+						<h1>Gestão de Dados - Idade Desmama</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+
+					<a class="btn btn-primary aw-link-panel" th:href="@{/gestao/geral}">Dados
+						Gerais</a>
+						<a class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/primeiraCria}">Idade Primeira Cria</a>
+						<a
+						class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/desfrute}">Taxa de Desfrute</a>
+				</div>
+			</div>
+
+
+
+
+
+
+
+			<form method="GET" class="form-vertical  js-form-loading">
+
+				<div layout:include="layout/MensagemGeral"></div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="input-group">
+								<input class="form-control"
+									placeholder="Informe nome do Bovino?" autofocus="autofocus"
+									name="descricao"></input> <span class="input-group-btn ">
+									<button type="button" class="btn btn-default ">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+
+
+
+			<div class="table-responsive">
+				<table id="tabela-produtos"
+					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+
+					<thead class="aw-table-header-solid">
+						<tr class="table-pesq-bovino-col-center">
+							<th class="table-pesq-bovino-col-center">Nome Bovino</th>
+							<th class="table-pesq-bovino-col-center">Idade Desmama</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="id : ${idadeDesmama}">
+
+							<td class="table-pesq-bovino-col-center"
+								th:text="${id.nome}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${id.fertilidade} (meses)|"></td>
+						</tr>
+
+
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

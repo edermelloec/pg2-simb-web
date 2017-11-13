@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-10">
+						<h1>Pesquisa de Bovinos</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<form method="GET" class="form-vertical  js-form-loading">
+
+				<div layout:include="layout/MensagemGeral"></div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="input-group">
+								<input class="form-control"
+									placeholder="Qual o Bovino voce esta procurando?"
+									autofocus="autofocus" name="descricao"></input> <span
+									class="input-group-btn ">
+									<button type="submit" class="btn btn-default ">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+
+			<div class="table-responsive">
+				<table id="tabela-produtos"
+					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					<thead class="aw-table-header-solid">
+						<tr class="table-pesq-bovino-col-center">
+							<th class="table-pesq-bovino-col-center">Gênero</th>
+							<th class="table-pesq-bovino-col-center">Nome Bovino</th>
+							<th class="table-pesq-bovino-col-center">Raça</th>
+							<th class="table-pesq-bovino-col-center">Fazenda</th>
+							<th class="table-pesq-bovino-col-center">Data Nascimento</th>
+							<th class="table-pesq-bovino-col-center">Matriz</th>
+							<th class="table-pesq-bovino-col-center">Ações</th>
+							<th class="table-pesq-bovino-col-center">Status</th>
+							<th class="table-pesq-bovino-col-center">Tarefa</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="bovino : ${bovinos} ">
+							<td class="table-pesq-bovino-col-center"
+								th:text="${bovino.genero} ? 'Macho' : 'Fêmea' "></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${bovino.nomeBovino}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${bovino.raca.nomeRaca}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${bovino.fazenda.nomeFazenda}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${#dates.format(bovino.dataNascimento, 'dd/MM/yyyy')}"></td>
+							<td class="table-pesq-bovino-col-center"><span
+								th:class="${bovino.fichaMatriz} != null ? 'fa  fa-check  js-tooltip' : 'fa fa-ban js-tooltip' "
+								data-placement="top" title="Inativo"></span></td>
+							<td class="table-pesq-bovino-col-center">
+
+								<div class="btn-group">
+									<a class="btn  btn-default btn-xs"
+										th:href="@{/bovinos/{codigo}(codigo=${bovino.idBovino})}"
+										>
+										<i class="fa  fa-pencil"></i>
+									</a> <a class="btn  btn-default btn-xs"  data-toggle="modal"
+										data-target="#confirmacaoExclusaoModal"
+										th:attr="data-codigo=${bovino.idBovino}, data-descricao=${bovino.nomeBovino}"
+										>
+										<span class="fa  fa-trash"></span>
+									</a>
+								</div>
+
+							</td>
+							<td class="table-pesq-bovino-col-center"><span
+								th:class="${bovino.status} ? 'label label-success' : 'label  label-danger' "
+								th:text="${bovino.status} ? 'Ativo' : 'Inativo' "></span></td>
+							<td class="table-pesq-bovino-col-center"><a
+								class="btn btn-default btn-xs"
+								th:href="@{/tarefas/adicionar/{codigo}(codigo=${bovino.idBovino})}">
+									<i class="fa  fa-plus-circle"></i> <span
+									class="hidden-xs  hidden-sm">Adicionar</span>
+							</a></td>
+						</tr>
+						
+
+
+
+						<tr th:if="${bovinos.empty}">
+							<td colspan="9" class="table-pesq-bovino-col-center">Nenhum
+								Bovino cadastrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="row">
+				<div
+					class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
+					<span class="aw-pagination-info"
+						th:text="${#lists.size(bovinos)} + ' bovino(s) encontrados'">
+
+					</span>
+				</div>
+			</div>
+			<div layout:include="/layout/DialogoConfirmacaoExclusaoBovino"></div>
+
+		</div>
+
+	</section>
+</body>
+</html>
