@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+
+<head>
+<title>Simb WEB</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-10">
+						<h1>Pesquisa de Bovinos</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<form method="GET" action="/gestao/listar/pesagem" class="form-vertical  js-form-loading">
+
+				<div layout:include="layout/MensagemGeral"></div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="input-group">
+								<input class="form-control"
+									placeholder="Qual o Bovino voce esta procurando?"
+									autofocus="autofocus" name="descricao"></input> <span
+									class="input-group-btn ">
+									<button type="submit" class="btn btn-default ">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="row">
+				<div class="col-sm-4">
+					<table id="tabela-produtos"
+						class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+						<thead class="aw-table-header-solid">
+							<tr class="table-pesq-bovino-col-center">
+
+								<th class="table-pesq-bovino-col-center">Nome Bovino</th>
+								<th class="table-pesq-bovino-col-center">Data Nascimento</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="bovino : ${bovinopeso} ">
+
+								<td class="table-pesq-bovino-col-center"
+									th:text="${bovino.nomeBovino}"></td>
+								<td class="table-pesq-bovino-col-center"
+									th:text="${#dates.format(bovino.dataNascimento, 'dd/MM/yyyy')}"></td>
+
+
+
+
+							</tr>
+
+
+
+
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+
+					<div>
+						<label for="input-produto-nome"><h3>Tabela de Pesos</h3></label>
+					</div>
+					<table id="tabela-produtos"
+						class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+						<thead class="aw-table-header-solid">
+							<tr class="table-alter-bovino-col-center">
+								<th class="table-alter-bovino-col-center">Data Pesagem</th>
+								<th class="table-pesq-bovino-col-center">Peso</th>
+
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr th:each="bovino : ${bovinopeso} ">
+							<tr th:each="peso : ${bovino.peso} ">
+								<td class="table-pesq-bovino-col-center"
+									th:text="${#dates.format(peso.dataPesagem, 'dd/MM/yyyy')}"></td>
+								<td class="table-pesq-bovino-col-center"
+									th:text="${peso.peso} + ' Kg' "></td>
+							</tr>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+
+	</section>
+</body>
+</html>
