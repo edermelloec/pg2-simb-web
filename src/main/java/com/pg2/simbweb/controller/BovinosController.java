@@ -72,34 +72,58 @@ public class BovinosController {
 	@RequestMapping
 	public ModelAndView pesquisa(@RequestParam(defaultValue="todos") String descricao, RedirectAttributes attributes) {
 		List<Bovino> bovinos  = bovinoClient.listarPorNome(descricao);
-		String m = null;
-		Date d = new Date();
-
-		Calendar cal = Calendar.getInstance();
-
-		cal.add(Calendar.DAY_OF_MONTH, -205);
-
-		d.setTime(cal.getTime().getTime());
+		String mensDesmama = null;
+		String mensParto = null;
+		String mensagem = null;
 		
+		Date dataDesmama = new Date();
+		Date dataParto = new Date();
+		
+		Calendar calDesmama = Calendar.getInstance();
+		Calendar calParto = Calendar.getInstance();
+		
+		calDesmama.add(Calendar.DAY_OF_MONTH, -205);
+		calParto.add(Calendar.DAY_OF_MONTH, -285);
+		
+		dataDesmama.setTime(calDesmama.getTime().getTime());
+		dataParto.setTime(calParto.getTime().getTime());
 		
 		if(descricao.equals("todos")) {
 			for(int i=0;i<bovinos.size();i++) {
 				
 				
 				
-				if(String.valueOf(bovinos.get(i).getDataNascimento().getTime()).substring(0, 5).equals(String.valueOf(d.getTime()).substring(0, 5))) {
-					if(m!=null) {
-						m = m +" ( Desmama, " +bovinos.get(i).getNomeBovino()+" ) ";
+				if(String.valueOf(bovinos.get(i).getDataNascimento().getTime()).substring(0, 5).equals(String.valueOf(dataDesmama.getTime()).substring(0, 5))) {
+					if(mensDesmama!=null) {
+						mensDesmama = mensDesmama +", ( Desmama, " +bovinos.get(i).getNomeBovino()+" ) ";
 					}else {
-						m = " ( Desmama, " +bovinos.get(i).getNomeBovino()+" ) ";
+						mensDesmama = " ( Desmama, " +bovinos.get(i).getNomeBovino()+" ) ";
+					}
+					
+				}
+				
+				if(String.valueOf(bovinos.get(i).getDataNascimento().getTime()).substring(0,5).equals(String.valueOf(dataParto.getTime()).substring(0,5))) {
+					if(mensParto != null) {
+						mensParto  = mensParto + ", ( Parto, " + bovinos.get(i).getNomeBovino()+" ) ";
+					}else {
+						mensParto = " ( Parto, " + bovinos.get(i).getNomeBovino()+" ) ";;
 					}
 					
 				}
 			}
+			System.out.println(mensDesmama + " - " + mensParto);
+			if(mensDesmama != null && mensParto != null ) {
+				mensagem = mensDesmama + mensParto;
+			}else if(mensParto != null) {
+				mensagem = mensParto;
+			}else if(mensDesmama != null) {
+				mensagem = mensDesmama;
+			}
+		
 		}
 		
 		ModelAndView mv = new ModelAndView(PESQUISA_BOVINO_VIEW);
-		mv.addObject("mensagem",m);
+		mv.addObject("mensagem",mensagem);
 		mv.addObject("bovinos", bovinos);
 		
 		

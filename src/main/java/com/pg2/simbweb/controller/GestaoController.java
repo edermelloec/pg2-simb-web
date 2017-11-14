@@ -45,6 +45,7 @@ import com.pg2.simbweb.gestao.Morte;
 import com.pg2.simbweb.gestao.Touro;
 import com.pg2.simbweb.gestao.Venda;
 
+
 @Controller
 @RequestMapping("/gestao")
 public class GestaoController {
@@ -265,15 +266,23 @@ public class GestaoController {
 	}
 	@RequestMapping("/listar/vendido")
 	public ModelAndView listaVendido() {
-
+		
 		ModelAndView mv = new ModelAndView("gestao/listarVendidos");
-
+		
 		return mv;
 	}
 	@RequestMapping("/listar/abatido")
 	public ModelAndView listaAbatido() {
 
 		ModelAndView mv = new ModelAndView("gestao/listarAbatido");
+
+		return mv;
+	}
+	@RequestMapping(value ="/listar/pesagem", method = RequestMethod.GET)
+	public ModelAndView listaPesagem(@RequestParam(defaultValue="todos") String descricao) {
+		List<Bovino> bovinos = bovinoClient.listarPorNome(descricao);
+		ModelAndView mv = new ModelAndView("gestao/listarPesagem");
+		mv.addObject("bovinopeso",bovinos);
 
 		return mv;
 	}
