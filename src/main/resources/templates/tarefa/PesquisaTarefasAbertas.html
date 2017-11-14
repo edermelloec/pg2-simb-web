@@ -25,35 +25,52 @@
 	</div>
 
 	<div class="container-fluid">
-		<!-- <form method="GET" class="form-vertical  js-form-loading">
+		<form method="GET" class="form-vertical  js-form-loading">
 		
 		<div layout:include="layout/MensagemGeral"></div>
 		
 			<div class="form-group">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="input-group">
-							<input class="form-control" placeholder="Qual a tarefa voce esta procurando?" 
-								autofocus="autofocus" name="descricao"></input>
-							<span class="input-group-btn " >
-								<button type="submit" class="btn btn-default ">
-									<i class="glyphicon glyphicon-search"></i>
-								</button>
-							</span>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="input-group">
+								<input class="form-control"
+									placeholder="Digite sua busca?"
+									autofocus="autofocus" name="descricao"></input> <span
+									class="input-group-btn ">
+									<button type="submit" class="btn btn-default ">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+
+								</span>
+
+
+							</div>
+	
 						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								
+								<select class="form-control" name="tipoBusca">
+									<option value="nome">Nome</option>
+									<option value="raca">Tipo Tarefa</option>
+									<option value="fazenda">Funcionario</option>
+									<option value="dataNascimento">Data Inclusao</option>
+								</select>
+
+							</div>
+						</div>
+						
 					</div>
 				</div>
-			</div>
-		</form> -->
+		</form>
 		
 		
 		<div class="table-responsive">
 			<table id="tabela-produtos" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
 				<thead class="aw-table-header-solid">
 					<tr class="table-pesq-bovino-col-center">
-<!-- 						<th class="aw-table-checkbox"> -->
-<!-- 							<input type="checkbox"/> -->
-<!-- 						</th> -->
+
 						<th class="table-pesq-bovino-col-center">Data Inclusao</th>
 						<th class="table-pesq-bovino-col-center">Tipo de Tarefa</th>
 						<th class="table-pesq-bovino-col-center">Funcionário</th>

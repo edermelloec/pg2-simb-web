@@ -70,8 +70,10 @@ public class BovinosController {
 	
 	
 	@RequestMapping
-	public ModelAndView pesquisa(@RequestParam(defaultValue="todos") String descricao, RedirectAttributes attributes) {
-		List<Bovino> bovinos  = bovinoClient.listarPorNome(descricao);
+	public ModelAndView pesquisa(@RequestParam(defaultValue="todos") String descricao, String tipoBusca, RedirectAttributes attributes) {
+		List<Bovino> bovinos  = bovinoClient.listarPorNome(descricao,tipoBusca);
+		
+		
 		String mensDesmama = null;
 		String mensParto = null;
 		String mensagem = null;

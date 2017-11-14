@@ -48,8 +48,9 @@ public class TarefasController {
 	/* ----------------------------------- GET ---------------------------------------*/
 	
 	@RequestMapping("ativas")
-	public ModelAndView pesquisaAtivos(@RequestParam(defaultValue="todos") String descricao) {
-		List<Tarefa> tarefas  = tarefaClient.listarTarefaAtivasPorData(descricao);
+	public ModelAndView pesquisaAtivos(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+		
+		List<Tarefa> tarefas  = tarefaClient.listarTarefaAtivasPorData(descricao,tipoBusca);
 		
 		ModelAndView mv = new ModelAndView(PESQUISA_TAREFAS_ATIVAS_VIEW);
 		mv.addObject("tarefas", tarefas);

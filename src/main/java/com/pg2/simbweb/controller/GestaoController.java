@@ -280,7 +280,7 @@ public class GestaoController {
 	}
 	@RequestMapping(value ="/listar/pesagem", method = RequestMethod.GET)
 	public ModelAndView listaPesagem(@RequestParam(defaultValue="todos") String descricao) {
-		List<Bovino> bovinos = bovinoClient.listarPorNome(descricao);
+		List<Bovino> bovinos = bovinoClient.listarPorNome(descricao,"nome");
 		ModelAndView mv = new ModelAndView("gestao/listarPesagem");
 		mv.addObject("bovinopeso",bovinos);
 
@@ -520,7 +520,7 @@ public class GestaoController {
 
 	@ModelAttribute("bovinos")
 	public List<Bovino> todosBovinos() {
-		List<Bovino> bovinos = bovinoClient.listarPorNome("todos");
+		List<Bovino> bovinos = bovinoClient.listarPorNome("todos","nome");
 
 		return bovinos;
 	}

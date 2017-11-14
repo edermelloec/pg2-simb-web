@@ -31,15 +31,31 @@
 						<div class="col-sm-4">
 							<div class="input-group">
 								<input class="form-control"
-									placeholder="Qual o Bovino voce esta procurando?"
+									placeholder="Digite sua busca?"
 									autofocus="autofocus" name="descricao"></input> <span
 									class="input-group-btn ">
 									<button type="submit" class="btn btn-default ">
 										<i class="glyphicon glyphicon-search"></i>
 									</button>
+
 								</span>
+
+
+							</div>
+
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<select class="form-control" name="tipoBusca">
+									<option value="nome">Nome</option>
+									<option value="raca">Raça</option>
+									<option value="fazenda">Fazenda</option>
+									<option value="dataNascimento">Data Nascimento</option>
+								</select>
+
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</form>
@@ -79,13 +95,11 @@
 
 								<div class="btn-group">
 									<a class="btn  btn-default btn-xs"
-										th:href="@{/bovinos/{codigo}(codigo=${bovino.idBovino})}"
-										>
+										th:href="@{/bovinos/{codigo}(codigo=${bovino.idBovino})}">
 										<i class="fa  fa-pencil"></i>
-									</a> <a class="btn  btn-default btn-xs"  data-toggle="modal"
+									</a> <a class="btn  btn-default btn-xs" data-toggle="modal"
 										data-target="#confirmacaoExclusaoModal"
-										th:attr="data-codigo=${bovino.idBovino}, data-descricao=${bovino.nomeBovino}"
-										>
+										th:attr="data-codigo=${bovino.idBovino}, data-descricao=${bovino.nomeBovino}">
 										<span class="fa  fa-trash"></span>
 									</a>
 								</div>
@@ -101,7 +115,7 @@
 									class="hidden-xs  hidden-sm">Adicionar</span>
 							</a></td>
 						</tr>
-						
+
 
 
 
