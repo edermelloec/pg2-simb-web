@@ -301,9 +301,9 @@ public class GestaoClient {
 		return Arrays.asList(response.getBody());
 
 	}
-	public List<Desmama> listarDesmama() {
+	public List<Desmama> listarDesmam(String busca,String tipoBusca) {
 
-		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_ + "/desmama")).build();
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_ + "/desmama"+"/"+busca+"/"+tipoBusca)).build();
 
 		ResponseEntity<Desmama[]> response = restTemplate.exchange(request, Desmama[].class);
 

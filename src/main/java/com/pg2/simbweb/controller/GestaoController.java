@@ -278,11 +278,13 @@ public class GestaoController {
 		return mv;
 	}
 
-	@RequestMapping("/listar/desmama")
-	public ModelAndView listaDesmama() {
-
+	
+	@RequestMapping(value="/listar/desmama", method = RequestMethod.GET)
+	public ModelAndView listaDesmama(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+		List<Desmama> desmama = gestaoClient.listarDesmam(descricao,tipoBusca);
 		ModelAndView mv = new ModelAndView("gestao/listarDesmama");
-
+		mv.addObject("desmamas",todasDesmama(desmama));
+		
 		return mv;
 	}
 	@RequestMapping("/listar/vendido")
@@ -605,17 +607,20 @@ public class GestaoController {
 		return morte;
 	}
 
-	@ModelAttribute("desmamas")
-	public List<Desmama> todasDesmama() {
-		List<Desmama> morte = gestaoClient.listarDesmama();
+	
+	public List<Desmama> todasDesmama(List<Desmama> desmama) {
+		
 		Bovino bovino;
-		for (int i = 0; i < morte.size(); i++) {
-			bovino = bovinoClient.listarUm(Long.parseLong(morte.get(i).getIdBovino()));
-			morte.get(i).setIdBovino(bovino.getNomeBovino());
-			morte.get(i).setIdFichaMatriz(bovino.getMae());
+		for (int i = 0; i < desmama.size(); i++) {
+			bovino = bovinoClient.listarUm(Long.parseLong(desmama.get(i).getIdBovino()));
+			desmama.get(i).setIdBovino(bovino.getNomeBovino());
+		}
+		for (int i = 0; i < desmama.size(); i++) {
+			bovino = bovinoClient.listarUm(Long.parseLong(desmama.get(i).getIdFichaMatriz()));
+			desmama.get(i).setIdFichaMatriz(bovino.getNomeBovino());
 		}
 
-		return morte;
+		return desmama;
 	}
 	@ModelAttribute("vendidos")
 	public List<Venda> todosVendidos() {
