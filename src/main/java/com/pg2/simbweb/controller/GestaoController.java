@@ -250,27 +250,31 @@ public class GestaoController {
 		return mv;
 	}
 
-	@RequestMapping("/listar/gestacao")
-	public ModelAndView listaDiagnosticoGestacao() {
-
+	@RequestMapping(value="/listar/gestacao", method = RequestMethod.GET)
+	public ModelAndView listaDiagnosticoGestacao(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+		List<DiagnosticoGestacao> dg = gestaoClient.listarDG(descricao,tipoBusca);
+		
 		ModelAndView mv = new ModelAndView("gestao/listarGestacao");
-
+		mv.addObject("diagGest",todosDG(dg));
 		return mv;
 	}
-
-	@RequestMapping("/listar/parto")
-	public ModelAndView listaParto() {
-
+	
+	@RequestMapping(value="/listar/parto", method = RequestMethod.GET)
+	public ModelAndView listaParto(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+		List<Parto> parto = gestaoClient.listarParto(descricao, tipoBusca);
 		ModelAndView mv = new ModelAndView("gestao/listarParto");
-
+		mv.addObject("partos", todosPartos(parto));
 		return mv;
 	}
 
-	@RequestMapping("/listar/morte")
-	public ModelAndView listaMorte() {
-
+	@RequestMapping(value="/listar/morte", method = RequestMethod.GET)
+	public ModelAndView listaMorte(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+		List<Morte> morte = gestaoClient.listarMorte(descricao, tipoBusca);
+		
 		ModelAndView mv = new ModelAndView("gestao/listarMorte");
-
+		
+		mv.addObject("mortos", todosMortos(morte));
+		
 		return mv;
 	}
 
@@ -565,9 +569,9 @@ public class GestaoController {
 		return inseminacoes;
 	}
 
-	@ModelAttribute("diagGest")
-	public List<DiagnosticoGestacao> todosDG() {
-		List<DiagnosticoGestacao> dg = gestaoClient.listarDG();
+	
+	public List<DiagnosticoGestacao> todosDG(List<DiagnosticoGestacao> dg) {
+		 
 		Bovino bovino;
 		for (int i = 0; i < dg.size(); i++) {
 			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(dg.get(i).getIdFichaMatriz()));
@@ -577,9 +581,9 @@ public class GestaoController {
 		return dg;
 	}
 
-	@ModelAttribute("partos")
-	public List<Parto> todosPartos() {
-		List<Parto> partos = gestaoClient.listarParto();
+	
+	public List<Parto> todosPartos(List<Parto> partos) {
+		
 		Bovino bovino;
 		for (int i = 0; i < partos.size(); i++) {
 			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(partos.get(i).getIdFichaMatriz()));
@@ -589,9 +593,9 @@ public class GestaoController {
 		return partos;
 	}
 
-	@ModelAttribute("mortos")
-	public List<Morte> todosMortos() {
-		List<Morte> morte = gestaoClient.listarMorte();
+	
+	public List<Morte> todosMortos(List<Morte> morte) {
+		
 		Bovino bovino;
 		for (int i = 0; i < morte.size(); i++) {
 			bovino = bovinoClient.listarUm(Long.parseLong(morte.get(i).getIdBovino()));

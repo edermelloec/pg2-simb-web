@@ -273,18 +273,18 @@ public class GestaoClient {
 		return Arrays.asList(response.getBody());
 
 	}
-	public List<DiagnosticoGestacao> listarDG() {
+	public List<DiagnosticoGestacao> listarDG(String busca,String tipoBusca) {
 
-		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_RESULTADO)).build();
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_RESULTADO+"/"+busca+"/"+tipoBusca)).build();
 
 		ResponseEntity<DiagnosticoGestacao[]> response = restTemplate.exchange(request, DiagnosticoGestacao[].class);
 
 		return Arrays.asList(response.getBody());
 
 	}
-	public List<Parto> listarParto() {
+	public List<Parto> listarParto(String busca,String tipoBusca) {
 
-		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_PARTO)).build();
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_PARTO+"/"+busca+"/"+tipoBusca)).build();
 
 		ResponseEntity<Parto[]> response = restTemplate.exchange(request, Parto[].class);
 
@@ -292,9 +292,9 @@ public class GestaoClient {
 
 	}
 	
-	public List<Morte> listarMorte() {
+	public List<Morte> listarMorte(String busca,String tipoBusca) {
 
-		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_ + "/morto")).build();
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_ + "/morto"+"/"+busca+"/"+tipoBusca)).build();
 
 		ResponseEntity<Morte[]> response = restTemplate.exchange(request, Morte[].class);
 
