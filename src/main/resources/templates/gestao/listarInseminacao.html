@@ -86,6 +86,7 @@
 								th:text="${ins.monta} ? 'Monta' : 'Inseminaçao' "></td>
 							<td class="table-pesq-bovino-col-center" th:switch="${ins.imei}">
 								<p th:case="'354983059791193'">Sebastiao</p>
+								<p th:case="'123456789'">Joao</p>
 								<p th:case="*">
 									<b>Sem Registro</b>
 								</p>
