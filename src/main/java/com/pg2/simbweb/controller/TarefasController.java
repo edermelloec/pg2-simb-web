@@ -59,8 +59,8 @@ public class TarefasController {
 	}
 	
 	@RequestMapping("concluidas")
-	public ModelAndView pesquisaConcluidas(@RequestParam(defaultValue="todos") String descricao) {
-		List<Tarefa> tarefas  = tarefaClient.listarTarefaConcluidasPorData(descricao);
+	public ModelAndView pesquisaConcluidas(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+		List<Tarefa> tarefas  = tarefaClient.listarTarefaConcluidasPorData(descricao,tipoBusca);
 		
 		ModelAndView mv = new ModelAndView(PESQUISA_TAREFAS_CONCLUIDAS_VIEW);
 		mv.addObject("tarefas", tarefas);

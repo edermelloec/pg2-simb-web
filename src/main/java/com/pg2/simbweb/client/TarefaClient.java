@@ -98,10 +98,10 @@ public class TarefaClient {
 			
 	}
 	
-	public List<Tarefa> listarTarefaConcluidasPorData(String data){
+	public List<Tarefa> listarTarefaConcluidasPorData(String data,String tipoBusca){
 		
 		RequestEntity<Void> request = RequestEntity
-				.get(URI.create(URI_BASE+"/dataConcluidas/"+data))
+				.get(URI.create(URI_BASE+"/dataConcluidas/"+data+"/"+tipoBusca))
 				.build();
 		ResponseEntity<Tarefa[]> response = restTemplate.exchange(request, Tarefa[].class);
 		return Arrays.asList(response.getBody());

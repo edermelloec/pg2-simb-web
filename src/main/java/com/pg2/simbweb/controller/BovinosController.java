@@ -113,7 +113,7 @@ public class BovinosController {
 					
 				}
 			}
-			System.out.println(mensDesmama + " - " + mensParto);
+			
 			if(mensDesmama != null && mensParto != null ) {
 				mensagem = mensDesmama + mensParto;
 			}else if(mensParto != null) {

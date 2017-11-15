@@ -28,13 +28,12 @@
 		<form method="GET" class="form-vertical  js-form-loading">
 		
 		<div layout:include="layout/MensagemGeral"></div>
-		
-			<div class="form-group">
+
+				<div class="form-group">
 					<div class="row">
 						<div class="col-sm-4">
 							<div class="input-group">
-								<input class="form-control"
-									placeholder="Digite sua busca?"
+								<input class="form-control" placeholder="Digite sua busca?"
 									autofocus="autofocus" name="descricao"></input> <span
 									class="input-group-btn ">
 									<button type="submit" class="btn btn-default ">
@@ -45,25 +44,25 @@
 
 
 							</div>
-	
+
 						</div>
-						
+
 						<div class="col-sm-4">
 							<div class="form-group">
-								
+
 								<select class="form-control" name="tipoBusca">
-									<option value="nome">Nome</option>
-									<option value="raca">Tipo Tarefa</option>
-									<option value="fazenda">Funcionario</option>
-									<option value="dataNascimento">Data Inclusao</option>
+									<option value="nome">Nome Bovino</option>
+									<option value="tipoTarefa">Tipo Tarefa</option>
+									<option value="funcionario">Funcionario</option>
+									<option value="dataInclusao">Data Inclusao</option>
 								</select>
 
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
-		</form>
+			</form>
 		
 		
 		<div class="table-responsive">
@@ -81,11 +80,12 @@
 				<tbody>				
 					<tr th:each="tarefa : ${tarefas} ">
 <!-- 						<td class="aw-table-checkbox"><input type="checkbox"/></td> -->
-						<td class="table-pesq-bovino-col-center"   th:text="${#dates.format(tarefa.dataInclusao, 'dd/MM/yyyy - HH:mm')}"></td>
+						<td class="table-pesq-bovino-col-center"   th:text="${#dates.format(tarefa.dataInclusao, 'dd/MM/yyyy')}"></td>
 						<td class="table-pesq-bovino-col-center"   th:text="${tarefa.tipoTarefa}"></td>
 						
 						<td class="table-pesq-bovino-col-center" th:switch="${tarefa.imei}">
-						  <p th:case="'354983059791193'">Sebastiao</p>						 
+						  <p th:case="'354983059791193'">Sebastiao</p>
+						  <p th:case="'123456789'">Joao</p>					 
 						  <p th:case="*"><b>Sem Registro</b></p>
 						</td> 
 						<td class="table-pesq-bovino-col-center" th:text="${tarefa.bovinoMatriz.nomeBovino}"></td>

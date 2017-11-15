@@ -22,35 +22,50 @@
 		</div>
 
 		<div class="container-fluid">
-			<!-- <form method="GET" action ="/tarefas/concluidas" class="form-vertical  js-form-loading">
+			<form method="GET" action ="/tarefas/concluidas" class="form-vertical  js-form-loading">
 				<div layout:include="layout/MensagemGeral"></div>
 
 				<div class="form-group">
 					<div class="row">
 						<div class="col-sm-4">
 							<div class="input-group">
-								<input class="form-control"
-									placeholder="Qual a tarefa voce esta procurando?"
+								<input class="form-control" placeholder="Digite sua busca?"
 									autofocus="autofocus" name="descricao"></input> <span
 									class="input-group-btn ">
 									<button type="submit" class="btn btn-default ">
 										<i class="glyphicon glyphicon-search"></i>
 									</button>
+
 								</span>
+
+
+							</div>
+
+						</div>
+
+						<div class="col-sm-4">
+							<div class="form-group">
+
+								<select class="form-control" name="tipoBusca">
+									<option value="nome">Nome Bovino</option>
+									<option value="tipoTarefa">Tipo Tarefa</option>
+									<option value="funcionario">Funcionario</option>
+									<option value="dataExecucao">Data Execução</option>
+								</select>
+
 							</div>
 						</div>
+
 					</div>
 				</div>
-			</form> -->
+			</form>
 
 			<div class="table-responsive">
 				<table id="tabela-produtos"
 					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
 					<thead class="aw-table-header-solid">
 						<tr class="table-pesq-bovino-col-center">
-							<!-- 						<th class="aw-table-checkbox"> -->
-							<!-- 							<input type="checkbox"/> -->
-							<!-- 						</th> -->
+							
 							<th class="table-pesq-bovino-col-center">Data Execução</th>
 							<th class="table-pesq-bovino-col-center">Tipo de Tarefa</th>
 							<th class="table-pesq-bovino-col-center">Funcionário</th>
@@ -62,12 +77,13 @@
 						<tr th:each="tarefa : ${tarefas} ">
 							<!-- 						<td class="aw-table-checkbox"><input type="checkbox"/></td> -->
 							<td class="table-pesq-bovino-col-center"
-								th:text="${#dates.format(tarefa.dataConclusao, 'dd/MM/yyyy - HH:mm')}"></td>
+								th:text="${#dates.format(tarefa.dataConclusao, 'dd/MM/yyyy')}"></td>
 							<td class="table-pesq-bovino-col-center"
 								th:text="${tarefa.tipoTarefa}"></td>
 							<td class="table-pesq-bovino-col-center"
 								th:switch="${tarefa.imei}">
 								<p th:case="'354983059791193'">Sebastiao</p>
+								<p th:case="'123456789'">Joao</p>		
 								<p th:case="*">
 									<b>Sem Registro</b>
 								</p>

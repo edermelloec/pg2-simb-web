@@ -8,7 +8,6 @@ public enum TipoTarefaEnum {
 	Inseminação("Inseminação"),
     DiagnosticoDeGestacao("Diagnostico de Gestacao"),
     Parto("Parto"),
-    IntervaloParto("Intervalo de Parto"),
     CadastrarBovino("Cadastrar Bovino");
 
 	private String descricao;

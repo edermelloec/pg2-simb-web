@@ -21,8 +21,14 @@ public class FuncionarioClient {
 		funcionario.setIdFuncionario((long) 1);
 		funcionario.setNome("Sebastiao");
 		funcionario.setImei("354983059791193");
-		
 		funcionarios.add(funcionario);
+		
+		funcionario = new Funcionario();
+		funcionario.setIdFuncionario((long) 1);
+		funcionario.setNome("Joao");
+		funcionario.setImei("123456789");
+		funcionarios.add(funcionario);
+		
 		
 		return funcionarios;
 		
