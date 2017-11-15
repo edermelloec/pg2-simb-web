@@ -264,9 +264,9 @@ public class GestaoClient {
 
 	}
 
-	public List<Inseminacao> listarInseminacao() {
+	public List<Inseminacao> listarInseminacao(String busca,String tipoBusca) {
 
-		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_INSEMINACAO)).build();
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_INSEMINACAO+"/"+busca+"/"+tipoBusca)).build();
 
 		ResponseEntity<Inseminacao[]> response = restTemplate.exchange(request, Inseminacao[].class);
 

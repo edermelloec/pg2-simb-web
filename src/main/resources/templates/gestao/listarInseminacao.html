@@ -23,7 +23,42 @@
 
 		<div class="container-fluid">
 
+			<form method="GET" action="/gestao/listar/inseminacao"
+				class="form-vertical  js-form-loading">
 
+				<div layout:include="layout/MensagemGeral"></div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="input-group">
+								<input class="form-control"
+									placeholder="Qual o Bovino voce esta procurando?"
+									autofocus="autofocus" name="descricao"></input> <span
+									class="input-group-btn ">
+									<button type="submit" class="btn btn-default ">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+
+								<select class="form-control" name="tipoBusca">
+									<option value="nomeMatriz">Nome Matriz</option>
+									<option value="nomeTouro">Nome Touro</option>
+									<option value="dataInseminacao">Data Inseminação</option>
+									<option value="dataPrevisaoParto">Data Previsão de Parto</option>
+									<option value="tipo">Tipo</option>
+									<option value="funcionario">Funcionário</option>
+								</select>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
 
 			<div class="table-responsive">
 				<table id="tabela-produtos"
@@ -49,17 +84,14 @@
 								th:text="${#dates.format(ins.previsaoParto, 'dd/MM/yyyy')}"></td>
 							<td class="table-pesq-bovino-col-center"
 								th:text="${ins.monta} ? 'Monta' : 'Inseminaçao' "></td>
-							<td class="table-pesq-bovino-col-center"
-								th:switch="${ins.imei}">
+							<td class="table-pesq-bovino-col-center" th:switch="${ins.imei}">
 								<p th:case="'354983059791193'">Sebastiao</p>
 								<p th:case="*">
 									<b>Sem Registro</b>
 								</p>
 							</td>
-							<td class="table-pesq-bovino-col-center"
-								th:text="${ins.touro}"></td>
-							<td class="table-pesq-bovino-col-center"
-								th:text="${ins.matriz}"></td>
+							<td class="table-pesq-bovino-col-center" th:text="${ins.touro}"></td>
+							<td class="table-pesq-bovino-col-center" th:text="${ins.matriz}"></td>
 
 
 

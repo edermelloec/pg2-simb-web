@@ -16,6 +16,7 @@ import com.pg2.simbweb.domain.bovino.Peso;
 import junit.framework.Assert;
 
 
+@SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SimbWebApplication.class)
 @WebAppConfiguration
@@ -34,6 +35,7 @@ public class SimbWebApplicationTests {
 		
 		String pesagemSalva = gestaoClient.salvarPesagem(peso, 1);
 		System.out.println(pesagemSalva);
+		
 		Assert.assertNotNull(pesagemSalva);
 	}
 

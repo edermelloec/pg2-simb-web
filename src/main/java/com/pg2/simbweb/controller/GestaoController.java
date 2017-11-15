@@ -224,11 +224,28 @@ public class GestaoController {
 
 		return mv;
 	}
-
-	@RequestMapping("/listar/inseminacao")
-	public ModelAndView listaInseminacao() {
-
+	
+	
+//	@ModelAttribute("inseminacoes")
+//	public List<Inseminacao> todasInseminacao() {
+//		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao();
+//		Bovino bovino;
+//		for (int i = 0; i < inseminacoes.size(); i++) {
+//			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(inseminacoes.get(i).getMatriz()));
+//			inseminacoes.get(i).setMatriz(bovino.getNomeBovino());
+//		}
+//
+//		return inseminacoes;
+//	}
+	
+	
+	
+	@RequestMapping(value ="/listar/inseminacao", method = RequestMethod.GET)
+	public ModelAndView listaInseminacao(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao,tipoBusca);
+		
 		ModelAndView mv = new ModelAndView("gestao/listarInseminacao");
+		mv.addObject("inseminacoes", todasInseminacao(inseminacoes));
 
 		return mv;
 	}
@@ -278,11 +295,22 @@ public class GestaoController {
 
 		return mv;
 	}
+	
 	@RequestMapping(value ="/listar/pesagem", method = RequestMethod.GET)
 	public ModelAndView listaPesagem(@RequestParam(defaultValue="todos") String descricao) {
+		Double ganho=0d;
 		List<Bovino> bovinos = bovinoClient.listarPorNome(descricao,"nome");
+		if(bovinos!=null) {
+			
+			if(bovinos.get(0).getPeso().size()>1) {
+				ganho = bovinos.get(0).getPeso().get(bovinos.get(0).getPeso().size()-1).getPeso()-bovinos.get(0).getPeso().get(0).getPeso();
+			}
+		}
+		  
+		
 		ModelAndView mv = new ModelAndView("gestao/listarPesagem");
-		mv.addObject("bovinopeso",bovinos);
+		mv.addObject("bovinopeso",bovinos.get(0));
+		mv.addObject("ganhoPeso",ganho);
 
 		return mv;
 	}
@@ -525,9 +553,9 @@ public class GestaoController {
 		return bovinos;
 	}
 
-	@ModelAttribute("inseminacoes")
-	public List<Inseminacao> todasInseminacao() {
-		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao();
+	
+	public List<Inseminacao> todasInseminacao(List<Inseminacao> inseminacoes) {
+		
 		Bovino bovino;
 		for (int i = 0; i < inseminacoes.size(); i++) {
 			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(inseminacoes.get(i).getMatriz()));

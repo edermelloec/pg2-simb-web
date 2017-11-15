@@ -4,9 +4,9 @@ package com.pg2.simbweb.domain.bovino;
 
 
 
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+//
+//import java.text.DateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -208,26 +208,26 @@ public class Bovino {
     }
 
 
-	@Override
-	public String toString() {
-		
-		String generoString = genero ? "macho" : "femea";
-		String statusString = status ? "ativo" : "Inativo";
-		String matrizString = fichaMatriz == null ? "matriz" : "";
-		String dataNascimentoString = "";
-		try {
-			dataNascimentoString = formataDateToString(dataNascimento);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return "" + nomeBovino + "." + generoString + "." + pai + "." + mae
-				+ "." + dataNascimentoString + "." + raca.getNomeRaca() + "." + pelagem.getNomePelagem() + "."
-				+ fazenda.getNomeFazenda() + "." + proprietario.getNomeProprietario() + ".ecc" + ecc.get(ecc.size()-1).getEscore() 
-				+ ".peso" + peso.get(peso.size()-1).getPeso() + "."
-				+ matrizString + "." + statusString + "";
-	}
+//	@Override
+//	public String toString() {
+//		
+//		String generoString = genero ? "macho" : "femea";
+//		String statusString = status ? "ativo" : "Inativo";
+//		String matrizString = fichaMatriz == null ? "matriz" : "";
+//		String dataNascimentoString = "";
+//		try {
+//			dataNascimentoString = formataDateToString(dataNascimento);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return "" + nomeBovino + "." + generoString + "." + pai + "." + mae
+//				+ "." + dataNascimentoString + "." + raca.getNomeRaca() + "." + pelagem.getNomePelagem() + "."
+//				+ fazenda.getNomeFazenda() + "." + proprietario.getNomeProprietario() + ".ecc" + ecc.get(ecc.size()-1).getEscore() 
+//				+ ".peso" + peso.get(peso.size()-1).getPeso() + "."
+//				+ matrizString + "." + statusString + "";
+//	}
 
 	@Override
 	public int hashCode() {
@@ -254,18 +254,18 @@ public class Bovino {
 		return true;
 	}
 
-	public static String formataDateToString(Date data) throws Exception {
-        if (data == null || data.equals(""))
-            return null;
-        String Auxdate = null;
-        try {
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Auxdate = formatter.format(data);
-        } catch (Exception e) {
-            throw e;
-        }
-        return Auxdate;
-    }
+//	public static String formataDateToString(Date data) throws Exception {
+//        if (data == null || data.equals(""))
+//            return null;
+//        String Auxdate = null;
+//        try {
+//            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//            Auxdate = formatter.format(data);
+//        } catch (Exception e) {
+//            throw e;
+//        }
+//        return Auxdate;
+//    }
 
 
 }

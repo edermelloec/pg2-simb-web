@@ -75,7 +75,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="tarefa : ${tarefas} ">
-							<!-- 						<td class="aw-table-checkbox"><input type="checkbox"/></td> -->
+							
 							<td class="table-pesq-bovino-col-center"
 								th:text="${#dates.format(tarefa.dataConclusao, 'dd/MM/yyyy')}"></td>
 							<td class="table-pesq-bovino-col-center"
@@ -93,10 +93,7 @@
 							<td class="table-pesq-bovino-col-center">
 
 								<div class="btn-group">
-									<!-- <a class="btn  btn-default btn-xs"
-										th:href="@{/tarefas/alterar/{codigo}(codigo=${tarefa.idTarefa})}">
-										<i class="fa  fa-eye"></i>
-									</a> -->
+									
 									 <a class="btn  btn-default btn-xs" data-toggle="modal"
 										data-target="#confirmacaoExclusaoModalTarefa"
 										th:attr="data-codigo=${tarefa.idTarefa}, data-descricao=${tarefa.tipoTarefa}, data-tipo=concluidas">

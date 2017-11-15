@@ -15,14 +15,15 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-xs-10">
-						<h1>Pesquisa de Bovinos</h1>
+						<h1>Pesagem Bovino</h1>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="container-fluid">
-			<form method="GET" action="/gestao/listar/pesagem" class="form-vertical  js-form-loading">
+			<form method="GET" action="/gestao/listar/pesagem"
+				class="form-vertical  js-form-loading">
 
 				<div layout:include="layout/MensagemGeral"></div>
 
@@ -100,6 +101,29 @@
 								<td class="table-pesq-bovino-col-center"
 									th:text="${peso.peso} + ' Kg' "></td>
 							</tr>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4">
+					<table id="tabela-produtos"
+						class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+						<thead class="aw-table-header-solid">
+							<tr class="table-alter-bovino-col-center">
+								<th class="table-alter-bovino-col-center">Ganho</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="peso : ${ganhoPeso} ">
+							
+								
+								<td class="table-pesq-bovino-col-center"
+									th:text="${peso} + ' Kg' "></td>
+							
 							</tr>
 						</tbody>
 					</table>
