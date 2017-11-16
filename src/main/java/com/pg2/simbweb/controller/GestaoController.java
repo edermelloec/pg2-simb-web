@@ -142,13 +142,13 @@ public class GestaoController {
 	// --------------------------------------------------------
 
 	@RequestMapping("/desfrute")
-	public ModelAndView gestaoDesfrute(@RequestParam(defaultValue = "01-01-01") String data) {
+	public ModelAndView gestaoDesfrute(@RequestParam(defaultValue = "31-12-2014") String dataInicial,@RequestParam(defaultValue = "01-01-2016") String dataFinal) {
 		
 		GestaoClient gc = new GestaoClient();
 
 		ModelAndView mv = new ModelAndView("gestao/desfrute");
-		mv.addObject("desfrute", gc.desfrute(data));
-
+		mv.addObject("desfrute", gc.desfrute(dataInicial,dataFinal));
+		mv.addObject("dataFinal", dataFinal);
 		return mv;
 	}
 

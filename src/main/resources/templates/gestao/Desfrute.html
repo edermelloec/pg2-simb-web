@@ -25,10 +25,8 @@
 				<div class="clearfix">
 
 					<a class="btn btn-primary aw-link-panel" th:href="@{/gestao/geral}">Dados
-						Gerais</a>
-						<a class="btn btn-primary aw-link-panel"
-						th:href="@{/gestao/desmama}">Idade Desmama</a>
-						<a
+						Gerais</a> <a class="btn btn-primary aw-link-panel"
+						th:href="@{/gestao/desmama}">Idade Desmama</a> <a
 						class="btn btn-primary aw-link-panel"
 						th:href="@{/gestao/primeiraCria}">Idade Primeira Cria</a>
 				</div>
@@ -40,18 +38,24 @@
 
 
 
-			<form method="GET" class="form-vertical  js-form-loading">
+			<form method="GET" action="/gestao/desfrute"
+				class="form-vertical  js-form-loading">
 
 				<div layout:include="layout/MensagemGeral"></div>
 
 				<div class="form-group">
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 							<div class="input-group">
-								<input class="form-control"
-									placeholder="Informe data  inicial !  ex: 01/01/2001" autofocus="autofocus"
-									name="data"></input> <span class="input-group-btn ">
-									<button type="button" class="btn btn-default ">
+								<input class="form-control" placeholder="ex: 01/01/2001"
+									autofocus="autofocus" name="dataInicial"></input>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="input-group">
+								<input class="form-control" placeholder="ex: 01/01/2002"
+									name="dataFinal"></input> <span class="input-group-btn ">
+									<button type="submit" class="btn btn-default ">
 										<i class="glyphicon glyphicon-search"></i>
 									</button>
 								</span>
@@ -70,14 +74,16 @@
 					<thead class="aw-table-header-solid">
 						<tr class="table-pesq-bovino-col-center">
 							<th class="table-pesq-bovino-col-center">Data Inicial</th>
+							<th class="table-pesq-bovino-col-center">Data Final</th>
 							<th class="table-pesq-bovino-col-center">Taxa Desfrute</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="d : ${desfrute}">
 
-							<td class="table-pesq-bovino-col-center" 
-								th:text="${d.nome}"></td>
+							<td class="table-pesq-bovino-col-center" th:text="${d.nome}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${dataFinal}"></td>
 							<td class="table-pesq-bovino-col-center"
 								th:text="| ${d.fertilidade}%|"></td>
 						</tr>

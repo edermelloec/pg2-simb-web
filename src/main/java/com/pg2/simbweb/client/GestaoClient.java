@@ -196,9 +196,9 @@ public class GestaoClient {
 
 	}
 
-	public List<Gestao> desfrute(String data) {
+	public List<Gestao> desfrute(String dataInicial,String dataFinal) {
 
-		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_BASE + "/desfrute/" + data)).build();
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_BASE + "/desfrute/" + dataInicial+"/"+dataFinal)).build();
 
 		ResponseEntity<Gestao[]> response = restTemplate.exchange(request, Gestao[].class);
 
