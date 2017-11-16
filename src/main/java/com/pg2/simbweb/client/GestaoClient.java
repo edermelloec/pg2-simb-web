@@ -311,9 +311,9 @@ public class GestaoClient {
 
 	}
 	
-	public List<Venda> listarVenda() {
+	public List<Venda> listarVenda(String busca,String tipoBusca) {
 
-		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_BASE+"/listar/vendidos")).build();
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_+"/venda/listar/vendidos"+"/"+busca+"/"+tipoBusca)).build();
 
 		ResponseEntity<Venda[]> response = restTemplate.exchange(request, Venda[].class);
 
@@ -321,9 +321,9 @@ public class GestaoClient {
 
 	}
 
-	public List<Abatido> listarAbatido() {
+	public List<Abatido> listarAbatido(String busca,String tipoBusca) {
 
-		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_BASE+"/listar/abatidos")).build();
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_+"/abatido"+"/"+busca+"/"+tipoBusca)).build();
 
 		ResponseEntity<Abatido[]> response = restTemplate.exchange(request, Abatido[].class);
 

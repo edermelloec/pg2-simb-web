@@ -22,13 +22,13 @@
 		</div>
 
 		<div class="container-fluid">
-<div class="row">
+			<div class="row">
 				<div class="col-sm-6">
 
 					<h3>Selecione o Tipo de Busca</h3>
 				</div>
 			</div>
-			<form method="GET" action="/gestao/listar/vendidos"
+			<form method="GET" action="/gestao/listar/vendido"
 				class="form-vertical  js-form-loading">
 
 				<div layout:include="layout/MensagemGeral"></div>
@@ -41,11 +41,7 @@
 								<select class="form-control" name="tipoBusca">
 									<option value="nomeBovino">Nome Bovino</option>
 									<option value="dataVenda">Data venda</option>
-									<option value="peso">Peso</option>
-									<option value="valor">Valor</option>
-									
 								</select>
-
 							</div>
 						</div>
 						<div class="col-sm-4">
@@ -75,7 +71,7 @@
 							<th class="table-pesq-bovino-col-center">Bovino</th>
 							<th class="table-pesq-bovino-col-center">Peso</th>
 							<th class="table-pesq-bovino-col-center">Valor</th>
-							
+
 						</tr>
 					</thead>
 					<tbody>
@@ -84,8 +80,10 @@
 							<td class="table-pesq-bovino-col-center"
 								th:text="${#dates.format(v.dataVenda, 'dd/MM/yyyy')}"></td>
 							<td class="table-pesq-bovino-col-center" th:text="${v.idBovino}"></td>
-							<td class="table-pesq-bovino-col-center" th:text="|${v.peso} KGs|"></td>
-							<td class="table-pesq-bovino-col-center" th:text="|R$ ${v.valor}|"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="|${v.peso} KGs|"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="|R$ ${v.valor}|"></td>
 						</tr>
 
 					</tbody>

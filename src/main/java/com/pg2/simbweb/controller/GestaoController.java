@@ -272,18 +272,22 @@ public class GestaoController {
 		
 		return mv;
 	}
-	@RequestMapping("/listar/vendido")
-	public ModelAndView listaVendido() {
-		
+	
+	@RequestMapping(value="/listar/vendido", method = RequestMethod.GET)
+	public ModelAndView listaVendido(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+		List<Venda> venda = gestaoClient.listarVenda(descricao,tipoBusca);
 		ModelAndView mv = new ModelAndView("gestao/listarVendidos");
-		
+		mv.addObject("vendidos", todosVendidos(venda));
 		return mv;
 	}
-	@RequestMapping("/listar/abatido")
-	public ModelAndView listaAbatido() {
-
+	
+	
+	
+	@RequestMapping(value="/listar/abatido", method = RequestMethod.GET)
+	public ModelAndView listaAbatido(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+		List<Abatido> abatidos = gestaoClient.listarAbatido(descricao,tipoBusca);
 		ModelAndView mv = new ModelAndView("gestao/listarAbatido");
-
+		mv.addObject("abatidos", todosAbatidos(abatidos));
 		return mv;
 	}
 	
@@ -607,9 +611,9 @@ public class GestaoController {
 
 		return desmama;
 	}
-	@ModelAttribute("vendidos")
-	public List<Venda> todosVendidos() {
-		List<Venda> venda = gestaoClient.listarVenda();
+	
+	public List<Venda> todosVendidos(List<Venda> venda) {
+		
 		Bovino bovino;
 		for (int i = 0; i < venda.size(); i++) {
 			bovino = bovinoClient.listarUm(Long.parseLong(venda.get(i).getIdBovino()));
@@ -620,9 +624,9 @@ public class GestaoController {
 		return venda;
 	}
 	
-	@ModelAttribute("abatidos")
-	public List<Abatido> todosAbatidos() {
-		List<Abatido> abatido = gestaoClient.listarAbatido();
+	
+	public List<Abatido> todosAbatidos(List<Abatido> abatido) {
+		
 		Bovino bovino;
 		for (int i = 0; i < abatido.size(); i++) {
 			bovino = bovinoClient.listarUm(Long.parseLong(abatido.get(i).getIdBovino()));
