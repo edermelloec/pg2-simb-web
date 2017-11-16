@@ -22,11 +22,31 @@
 		</div>
 
 		<div class="container-fluid">
+					<div class="row">
+				<div class="col-sm-6">
+
+					<h3>Selecione o Tipo de Busca</h3>
+				</div>
+			</div>
 			<form method="GET" action ="/tarefas/concluidas" class="form-vertical  js-form-loading">
 				<div layout:include="layout/MensagemGeral"></div>
 
 				<div class="form-group">
 					<div class="row">
+						
+
+						<div class="col-sm-4">
+							<div class="form-group">
+
+								<select class="form-control" name="tipoBusca">
+									<option value="nome">Nome Bovino</option>
+									<option value="tipoTarefa">Tipo Tarefa</option>
+									<option value="funcionario">Funcionario</option>
+									<option value="dataExecucao">Data Execução</option>
+								</select>
+
+							</div>
+						</div>
 						<div class="col-sm-4">
 							<div class="input-group">
 								<input class="form-control" placeholder="Digite sua busca?"
@@ -41,19 +61,6 @@
 
 							</div>
 
-						</div>
-
-						<div class="col-sm-4">
-							<div class="form-group">
-
-								<select class="form-control" name="tipoBusca">
-									<option value="nome">Nome Bovino</option>
-									<option value="tipoTarefa">Tipo Tarefa</option>
-									<option value="funcionario">Funcionario</option>
-									<option value="dataExecucao">Data Execução</option>
-								</select>
-
-							</div>
 						</div>
 
 					</div>

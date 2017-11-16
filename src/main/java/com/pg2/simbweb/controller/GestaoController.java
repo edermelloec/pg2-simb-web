@@ -225,21 +225,6 @@ public class GestaoController {
 		return mv;
 	}
 	
-	
-//	@ModelAttribute("inseminacoes")
-//	public List<Inseminacao> todasInseminacao() {
-//		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao();
-//		Bovino bovino;
-//		for (int i = 0; i < inseminacoes.size(); i++) {
-//			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(inseminacoes.get(i).getMatriz()));
-//			inseminacoes.get(i).setMatriz(bovino.getNomeBovino());
-//		}
-//
-//		return inseminacoes;
-//	}
-	
-	
-	
 	@RequestMapping(value ="/listar/inseminacao", method = RequestMethod.GET)
 	public ModelAndView listaInseminacao(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
 		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao,tipoBusca);

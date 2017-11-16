@@ -1,36 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/LayoutPadrao">
-	
+
 <head>
-	<title>Simb WEB</title>
+<title>Simb WEB</title>
 </head>
 
 <body>
-<section layout:fragment="conteudo">
+	<section layout:fragment="conteudo">
 
-	<div class="page-header">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-10">
-					<h1>
-						Tarefas em Aberto
-						
-					</h1>
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-10">
+						<h1>Tarefas em Aberto</h1>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="container-fluid">
-		<form method="GET" class="form-vertical  js-form-loading">
-		
-		<div layout:include="layout/MensagemGeral"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+
+					<h3>Selecione o Tipo de Busca</h3>
+				</div>
+			</div>
+			<form method="GET" class="form-vertical  js-form-loading">
+
+				<div layout:include="layout/MensagemGeral"></div>
 
 				<div class="form-group">
 					<div class="row">
+
+
+						<div class="col-sm-4">
+							<div class="form-group">
+
+								<select class="form-control" name="tipoBusca">
+									<option value="nome">Nome Bovino</option>
+									<option value="tipoTarefa">Tipo Tarefa</option>
+									<option value="funcionario">Funcionario</option>
+									<option value="dataInclusao">Data Inclusao</option>
+								</select>
+
+							</div>
+						</div>
 						<div class="col-sm-4">
 							<div class="input-group">
 								<input class="form-control" placeholder="Digite sua busca?"
@@ -47,80 +64,77 @@
 
 						</div>
 
-						<div class="col-sm-4">
-							<div class="form-group">
-
-								<select class="form-control" name="tipoBusca">
-									<option value="nome">Nome Bovino</option>
-									<option value="tipoTarefa">Tipo Tarefa</option>
-									<option value="funcionario">Funcionario</option>
-									<option value="dataInclusao">Data Inclusao</option>
-								</select>
-
-							</div>
-						</div>
-
 					</div>
 				</div>
 			</form>
-		
-		
-		<div class="table-responsive">
-			<table id="tabela-produtos" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
-				<thead class="aw-table-header-solid">
-					<tr class="table-pesq-bovino-col-center">
 
-						<th class="table-pesq-bovino-col-center">Data Inclusao</th>
-						<th class="table-pesq-bovino-col-center">Tipo de Tarefa</th>
-						<th class="table-pesq-bovino-col-center">Funcionário</th>
-						<th class="table-pesq-bovino-col-center">Bovino</th>
-						<th class="table-pesq-bovino-col-center">Ações</th>
-					</tr>
-				</thead>
-				<tbody>				
-					<tr th:each="tarefa : ${tarefas} ">
-<!-- 						<td class="aw-table-checkbox"><input type="checkbox"/></td> -->
-						<td class="table-pesq-bovino-col-center"   th:text="${#dates.format(tarefa.dataInclusao, 'dd/MM/yyyy')}"></td>
-						<td class="table-pesq-bovino-col-center"   th:text="${tarefa.tipoTarefa}"></td>
-						
-						<td class="table-pesq-bovino-col-center" th:switch="${tarefa.imei}">
-						  <p th:case="'354983059791193'">Sebastiao</p>
-						  <p th:case="'123456789'">Joao</p>					 
-						  <p th:case="*"><b>Sem Registro</b></p>
-						</td> 
-						<td class="table-pesq-bovino-col-center" th:text="${tarefa.bovinoMatriz.nomeBovino}"></td>
-						<td class="table-pesq-bovino-col-center">
-						
-							<div class="btn-group">
-								<a class="btn  btn-default btn-xs" th:href="@{/tarefas/alterar/{codigo}(codigo=${tarefa.idTarefa})}">
-									<i class="fa  fa-check"></i>
-								</a>
-								
-								<a class="btn  btn-default btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModalTarefa"
-									th:attr="data-codigo=${tarefa.idTarefa}, data-descricao=${tarefa.tipoTarefa}, data-tipo=ativas">
-									<span class="fa  fa-trash"></span>
-								</a>
-							</div>
-							
-						</td>
-					</tr>
-					<tr th:if="${tarefas.empty}">
-						<td colspan="9" class="table-pesq-bovino-col-center">Nenhuma tarefa cadastrada</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-			
-		<div class="row">
-			<div class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
-				<span class="aw-pagination-info" th:text="${#lists.size(tarefas)} + ' tarefa(s) encontradas'">
-					
-				</span>
+
+			<div class="table-responsive">
+				<table id="tabela-produtos"
+					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					<thead class="aw-table-header-solid">
+						<tr class="table-pesq-bovino-col-center">
+
+							<th class="table-pesq-bovino-col-center">Data Inclusao</th>
+							<th class="table-pesq-bovino-col-center">Tipo de Tarefa</th>
+							<th class="table-pesq-bovino-col-center">Funcionário</th>
+							<th class="table-pesq-bovino-col-center">Bovino</th>
+							<th class="table-pesq-bovino-col-center">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="tarefa : ${tarefas} ">
+							<!-- 						<td class="aw-table-checkbox"><input type="checkbox"/></td> -->
+							<td class="table-pesq-bovino-col-center"
+								th:text="${#dates.format(tarefa.dataInclusao, 'dd/MM/yyyy')}"></td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${tarefa.tipoTarefa}"></td>
+
+							<td class="table-pesq-bovino-col-center"
+								th:switch="${tarefa.imei}">
+								<p th:case="'354983059791193'">Sebastiao</p>
+								<p th:case="'123456789'">Joao</p>
+								<p th:case="*">
+									<b>Sem Registro</b>
+								</p>
+							</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="${tarefa.bovinoMatriz.nomeBovino}"></td>
+							<td class="table-pesq-bovino-col-center">
+
+								<div class="btn-group">
+									<a class="btn  btn-default btn-xs"
+										th:href="@{/tarefas/alterar/{codigo}(codigo=${tarefa.idTarefa})}">
+										<i class="fa  fa-check"></i>
+									</a> <a class="btn  btn-default btn-xs" data-toggle="modal"
+										data-target="#confirmacaoExclusaoModalTarefa"
+										th:attr="data-codigo=${tarefa.idTarefa}, data-descricao=${tarefa.tipoTarefa}, data-tipo=ativas">
+										<span class="fa  fa-trash"></span>
+									</a>
+								</div>
+
+							</td>
+						</tr>
+						<tr th:if="${tarefas.empty}">
+							<td colspan="9" class="table-pesq-bovino-col-center">Nenhuma
+								tarefa cadastrada</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</div>
-		<div layout:include="/layout/DialogoConfirmacaoExclusaoTarefa"></div>
-	</div>
 
-</section>
+			<div class="row">
+				<div
+					class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
+					<span class="aw-pagination-info"
+						th:text="${#lists.size(tarefas)} + ' tarefa(s) encontradas'">
+
+					</span>
+				</div>
+			</div>
+			<div layout:include="/layout/DialogoConfirmacaoExclusaoTarefa"></div>
+		</div>
+
+	</section>
 </body>
 </html>

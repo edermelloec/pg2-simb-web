@@ -22,28 +22,16 @@
 		</div>
 
 		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+
+					<h3>Selecione o Tipo de Busca</h3>
+				</div>
+			</div>
 			<form method="GET" class="form-vertical  js-form-loading">
-
 				<div layout:include="layout/MensagemGeral"></div>
-
 				<div class="form-group">
 					<div class="row">
-						<div class="col-sm-4">
-							<div class="input-group">
-								<input class="form-control"
-									placeholder="Digite sua busca?"
-									autofocus="autofocus" name="descricao"></input> <span
-									class="input-group-btn ">
-									<button type="submit" class="btn btn-default ">
-										<i class="glyphicon glyphicon-search"></i>
-									</button>
-
-								</span>
-
-
-							</div>
-
-						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
 								<select class="form-control" name="tipoBusca">
@@ -52,10 +40,19 @@
 									<option value="fazenda">Fazenda</option>
 									<option value="dataNascimento">Data Nascimento</option>
 								</select>
-
 							</div>
 						</div>
-						
+						<div class="col-sm-4">
+							<div class="input-group">
+								<input class="form-control" placeholder="Digite sua busca?"
+									autofocus="autofocus" name="descricao"></input> <span
+									class="input-group-btn ">
+									<button type="submit" class="btn btn-default ">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</form>
