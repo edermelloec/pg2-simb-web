@@ -298,7 +298,7 @@ public class GestaoController {
 		if(bovinos!=null) {
 			
 			if(bovinos.get(0).getPeso().size()>1) {
-				ganho = bovinos.get(0).getPeso().get(bovinos.get(0).getPeso().size()-1).getPeso()-bovinos.get(0).getPeso().get(0).getPeso();
+				ganho = bovinos.get(0).getPeso().get(bovinos.get(0).getPeso().size()-1).getPeso()-bovinos.get(0).getPeso().get(bovinos.get(0).getPeso().size()-2).getPeso();
 			}
 		}
 		  
@@ -309,6 +309,8 @@ public class GestaoController {
 
 		return mv;
 	}
+
+
 	// ------------------------------ PARTO
 	// --------------------------------------------------------
 	@RequestMapping("/adicionar/parto")
@@ -453,7 +455,7 @@ public class GestaoController {
 		gestaoClient.salvarEcc(ecc, id);
 		attributes.addFlashAttribute("mensagem", "Ecc salvo com sucesso!");
 
-		return "redirect:adicionar/ecc";
+		return "redirect:adicionar/criarBovino";
 	}
 
 	// ------------------------------ MATRIZ

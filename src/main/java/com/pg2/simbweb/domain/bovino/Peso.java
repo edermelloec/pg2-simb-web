@@ -4,6 +4,7 @@ package com.pg2.simbweb.domain.bovino;
 
 
 
+
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
@@ -48,7 +49,6 @@ public class Peso  {
     public Date getDataPesagem() {
         return dataPesagem;
     }
-
     public void setDataPesagem(Date dataPesagem) {
         this.dataPesagem = dataPesagem;
     }
