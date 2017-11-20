@@ -102,6 +102,10 @@
 									th:text="${peso.peso} + ' Kgs' "></td>
 							</tr>
 							</tr>
+							<tr th:if="${bovinopeso.peso.empty}">
+							<td colspan="9" class="table-pesq-bovino-col-center">Nenhum
+								Peso cadastrado</td>
+						</tr>
 						</tbody>
 					</table>
 

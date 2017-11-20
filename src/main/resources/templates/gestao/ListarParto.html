@@ -43,7 +43,7 @@
 									<option value="dataParto">Data Parto</option>
 									<option value="descricao">Descrição</option>
 									<option value="status">Status</option>
-									
+
 								</select>
 
 							</div>
@@ -86,15 +86,24 @@
 								th:text="${p.idFichaMatriz}"></td>
 							<td class="table-pesq-bovino-col-center" th:text="${p.descricao}"></td>
 							<td class="table-pesq-bovino-col-center" th:text="${p.status}"></td>
-
-
-
+						</tr>
+						<tr th:if="${partos.empty}">
+							<td colspan="9" class="table-pesq-bovino-col-center">Nenhum
+								Parto cadastrado</td>
 						</tr>
 
 					</tbody>
 				</table>
 			</div>
+			<div class="row">
+				<div
+					class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
+					<span class="aw-pagination-info"
+						th:text="${#lists.size(partos)} + ' partos encontrados'">
 
+					</span>
+				</div>
+			</div>
 
 
 		</div>

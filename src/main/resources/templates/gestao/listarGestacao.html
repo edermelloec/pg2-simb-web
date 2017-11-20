@@ -93,11 +93,22 @@
 
 
 						</tr>
-
+						<tr th:if="${diagGest.empty}">
+							<td colspan="9" class="table-pesq-bovino-col-center">Nenhum
+								Diagnostico de Gestação cadastrado</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+			<div class="row">
+				<div
+					class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
+					<span class="aw-pagination-info"
+						th:text="${#lists.size(diagGest)} + ' diagnosticos de gestação encontrados'">
 
+					</span>
+				</div>
+			</div>
 
 
 		</div>

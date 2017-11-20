@@ -83,9 +83,21 @@
 							<td class="table-pesq-bovino-col-center" th:text="|${a.peso} KGs|"></td>
 							<td class="table-pesq-bovino-col-center" th:text="${a.descricao}"></td>
 						</tr>
-
+						<tr th:if="${abatidos.empty}">
+							<td colspan="9" class="table-pesq-bovino-col-center">Nenhuma
+								Abatido cadastrado</td>
+						</tr>
 					</tbody>
 				</table>
+			</div>
+			<div class="row">
+				<div
+					class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
+					<span class="aw-pagination-info"
+						th:text="${#lists.size(abatidos)} + ' abatidos encontrados'">
+
+					</span>
+				</div>
 			</div>
 
 

@@ -1,10 +1,13 @@
 package com.pg2.simbweb.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -521,6 +524,36 @@ public class GestaoController {
 		attributes.addFlashAttribute("mensagem", "Inseminação salva com sucesso!");
 		return new ModelAndView("redirect:adicionar/inseminacao");
 	}
+//	@RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
+//    public void buscarBovinoPorMae() {
+//        Peso peso;
+//        for (int i = 1; i <= 25; i++) {
+//            peso = new Peso();
+//
+//            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+//            Random gerador = new Random();
+//
+//                Date data;
+//				try {
+//					data = formato.parse("01-06-2015");
+//					peso.setDataPesagem(data);
+//					
+//					int peso1 = gerador.nextInt((460 - 440) + 1) + 440;
+//	                
+//					peso.setPeso(Double.valueOf(String.valueOf(peso1)));
+//	                gestaoClient.salvarPesagem(peso, i);
+//				} catch (ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//                
+//                
+//
+//            
+//        }
+//
+//    }
+
 
 	// ------------------------------ MODELATRRIBUTE
 	// --------------------------------------------------------

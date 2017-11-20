@@ -83,11 +83,23 @@
 							<td class="table-pesq-bovino-col-center" th:text="${m.idBovino}"></td>
 							<td class="table-pesq-bovino-col-center" th:text="${m.causa}"></td>
 						</tr>
+						<tr th:if="${mortos.empty}">
+							<td colspan="9" class="table-pesq-bovino-col-center">Nenhuma
+								Morte cadastrado</td>
+						</tr>
 
 					</tbody>
 				</table>
 			</div>
+			<div class="row">
+				<div
+					class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
+					<span class="aw-pagination-info"
+						th:text="${#lists.size(mortos)} + ' mortes encontrados'">
 
+					</span>
+				</div>
+			</div>
 
 
 		</div>
