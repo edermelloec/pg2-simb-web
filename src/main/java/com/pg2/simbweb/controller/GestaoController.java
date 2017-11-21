@@ -45,9 +45,9 @@ import com.pg2.simbweb.domain.tarefa.TipoTarefaEnum;
 import com.pg2.simbweb.gestao.Abatido;
 import com.pg2.simbweb.gestao.Desmama;
 import com.pg2.simbweb.gestao.Morte;
+import com.pg2.simbweb.gestao.Pesagem;
 import com.pg2.simbweb.gestao.Touro;
 import com.pg2.simbweb.gestao.Venda;
-
 
 @Controller
 @RequestMapping("/gestao")
@@ -145,12 +145,13 @@ public class GestaoController {
 	// --------------------------------------------------------
 
 	@RequestMapping("/desfrute")
-	public ModelAndView gestaoDesfrute(@RequestParam(defaultValue = "31-12-2014") String dataInicial,@RequestParam(defaultValue = "01-01-2016") String dataFinal) {
-		
+	public ModelAndView gestaoDesfrute(@RequestParam(defaultValue = "31-12-2014") String dataInicial,
+			@RequestParam(defaultValue = "01-01-2016") String dataFinal) {
+
 		GestaoClient gc = new GestaoClient();
 
 		ModelAndView mv = new ModelAndView("gestao/desfrute");
-		mv.addObject("desfrute", gc.desfrute(dataInicial,dataFinal));
+		mv.addObject("desfrute", gc.desfrute(dataInicial, dataFinal));
 		mv.addObject("dataFinal", dataFinal);
 		return mv;
 	}
@@ -227,92 +228,95 @@ public class GestaoController {
 
 		return mv;
 	}
-	
-	@RequestMapping(value ="/listar/inseminacao", method = RequestMethod.GET)
-	public ModelAndView listaInseminacao(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
-		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao,tipoBusca);
-		
+
+	@RequestMapping(value = "/listar/inseminacao", method = RequestMethod.GET)
+	public ModelAndView listaInseminacao(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
+		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao, tipoBusca);
+
 		ModelAndView mv = new ModelAndView("gestao/listarInseminacao");
 		mv.addObject("inseminacoes", todasInseminacao(inseminacoes));
 
 		return mv;
 	}
 
-	@RequestMapping(value="/listar/gestacao", method = RequestMethod.GET)
-	public ModelAndView listaDiagnosticoGestacao(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
-		List<DiagnosticoGestacao> dg = gestaoClient.listarDG(descricao,tipoBusca);
-		
+	@RequestMapping(value = "/listar/gestacao", method = RequestMethod.GET)
+	public ModelAndView listaDiagnosticoGestacao(@RequestParam(defaultValue = "todos") String descricao,
+			String tipoBusca) {
+		List<DiagnosticoGestacao> dg = gestaoClient.listarDG(descricao, tipoBusca);
+
 		ModelAndView mv = new ModelAndView("gestao/listarGestacao");
-		mv.addObject("diagGest",todosDG(dg));
+		mv.addObject("diagGest", todosDG(dg));
 		return mv;
 	}
-	
-	@RequestMapping(value="/listar/parto", method = RequestMethod.GET)
-	public ModelAndView listaParto(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+
+	@RequestMapping(value = "/listar/parto", method = RequestMethod.GET)
+	public ModelAndView listaParto(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
 		List<Parto> parto = gestaoClient.listarParto(descricao, tipoBusca);
 		ModelAndView mv = new ModelAndView("gestao/listarParto");
 		mv.addObject("partos", todosPartos(parto));
 		return mv;
 	}
 
-	@RequestMapping(value="/listar/morte", method = RequestMethod.GET)
-	public ModelAndView listaMorte(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
+	@RequestMapping(value = "/listar/morte", method = RequestMethod.GET)
+	public ModelAndView listaMorte(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
 		List<Morte> morte = gestaoClient.listarMorte(descricao, tipoBusca);
-		
+
 		ModelAndView mv = new ModelAndView("gestao/listarMorte");
-		
+
 		mv.addObject("mortos", todosMortos(morte));
-		
+
 		return mv;
 	}
 
-	
-	@RequestMapping(value="/listar/desmama", method = RequestMethod.GET)
-	public ModelAndView listaDesmama(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
-		List<Desmama> desmama = gestaoClient.listarDesmam(descricao,tipoBusca);
+	@RequestMapping(value = "/listar/desmama", method = RequestMethod.GET)
+	public ModelAndView listaDesmama(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
+		List<Desmama> desmama = gestaoClient.listarDesmam(descricao, tipoBusca);
 		ModelAndView mv = new ModelAndView("gestao/listarDesmama");
-		mv.addObject("desmamas",todasDesmama(desmama));
-		
+		mv.addObject("desmamas", todasDesmama(desmama));
+
 		return mv;
 	}
-	
-	@RequestMapping(value="/listar/vendido", method = RequestMethod.GET)
-	public ModelAndView listaVendido(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
-		List<Venda> venda = gestaoClient.listarVenda(descricao,tipoBusca);
+
+	@RequestMapping(value = "/listar/vendido", method = RequestMethod.GET)
+	public ModelAndView listaVendido(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
+		List<Venda> venda = gestaoClient.listarVenda(descricao, tipoBusca);
 		ModelAndView mv = new ModelAndView("gestao/listarVendidos");
 		mv.addObject("vendidos", todosVendidos(venda));
 		return mv;
 	}
-	
-	
-	
-	@RequestMapping(value="/listar/abatido", method = RequestMethod.GET)
-	public ModelAndView listaAbatido(@RequestParam(defaultValue="todos") String descricao, String tipoBusca) {
-		List<Abatido> abatidos = gestaoClient.listarAbatido(descricao,tipoBusca);
+
+	@RequestMapping(value = "/listar/abatido", method = RequestMethod.GET)
+	public ModelAndView listaAbatido(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
+		List<Abatido> abatidos = gestaoClient.listarAbatido(descricao, tipoBusca);
 		ModelAndView mv = new ModelAndView("gestao/listarAbatido");
 		mv.addObject("abatidos", todosAbatidos(abatidos));
 		return mv;
 	}
-	
-	@RequestMapping(value ="/listar/pesagem", method = RequestMethod.GET)
-	public ModelAndView listaPesagem(@RequestParam(defaultValue="todos") String descricao) {
-		Double ganho=0d;
-		List<Bovino> bovinos = bovinoClient.listarPorNome(descricao,"nome");
-		if(bovinos!=null) {
+
+	@RequestMapping(value = "/listar/pesagem", method = RequestMethod.GET)
+	public ModelAndView listaPesagem(@RequestParam(defaultValue = "todos") String descricao) {
+		Double ganho = 0d;
+		List<Bovino> bovinos = bovinoClient.listarPorNome(descricao, "nome");
+		List<Pesagem> pesos = new ArrayList<>();
+		if (bovinos != null) {
 			
-			if(bovinos.get(0).getPeso().size()>1) {
-				ganho = bovinos.get(0).getPeso().get(bovinos.get(0).getPeso().size()-1).getPeso()-bovinos.get(0).getPeso().get(bovinos.get(0).getPeso().size()-2).getPeso();
+			if (bovinos.get(0).getPeso().size() > 1) {
+				for (int i = 0; i < bovinos.get(0).getPeso().size()-1; i++) {
+					ganho = bovinos.get(0).getPeso().get(i+1).getPeso()
+							- bovinos.get(0).getPeso().get(i).getPeso();
+					Pesagem p = new Pesagem();
+					p.setGanho(ganho);
+					p.setPeso(Double.valueOf(String.valueOf(i+1)));
+					pesos.add(p);
+				}
+
 			}
 		}
-		  
-		
 		ModelAndView mv = new ModelAndView("gestao/listarPesagem");
-		mv.addObject("bovinopeso",bovinos.get(0));
-		mv.addObject("ganhoPeso",ganho);
-
+		mv.addObject("bovinopeso", bovinos.get(0));
+		mv.addObject("ganhoPeso", pesos);
 		return mv;
 	}
-
 
 	// ------------------------------ PARTO
 	// --------------------------------------------------------
@@ -393,7 +397,7 @@ public class GestaoController {
 		gestaoClient.salvarVendido(venda);
 		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso!");
 
-		return new ModelAndView ("redirect:adicionar/vendido");
+		return new ModelAndView("redirect:adicionar/vendido");
 	}
 
 	// ------------------------------ ABATE
@@ -406,7 +410,7 @@ public class GestaoController {
 
 	@RequestMapping(value = "/abatido", method = RequestMethod.POST)
 	public ModelAndView salvarAbatido(@Validated Abatido abatido, BindingResult result, RedirectAttributes attributes) {
-		
+
 		if (result.hasErrors()) {
 
 			return adicionarAbatido(abatido);
@@ -415,7 +419,7 @@ public class GestaoController {
 		gestaoClient.salvarAbatido(abatido);
 		attributes.addFlashAttribute("mensagem", "Bovino abatido salvo com sucesso!");
 
-		return new ModelAndView ("redirect:adicionar/abatido");
+		return new ModelAndView("redirect:adicionar/abatido");
 	}
 
 	// ------------------------------ PESAGEM
@@ -524,36 +528,43 @@ public class GestaoController {
 		attributes.addFlashAttribute("mensagem", "Inseminação salva com sucesso!");
 		return new ModelAndView("redirect:adicionar/inseminacao");
 	}
-//	@RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
-//    public void buscarBovinoPorMae() {
-//        Peso peso;
-//        for (int i = 1; i <= 25; i++) {
-//            peso = new Peso();
-//
-//            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-//            Random gerador = new Random();
-//
-//                Date data;
-//				try {
-//					data = formato.parse("01-06-2015");
-//					peso.setDataPesagem(data);
-//					
-//					int peso1 = gerador.nextInt((460 - 440) + 1) + 440;
-//	                
-//					peso.setPeso(Double.valueOf(String.valueOf(peso1)));
-//	                gestaoClient.salvarPesagem(peso, i);
-//				} catch (ParseException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//                
-//                
-//
-//            
-//        }
-//
-//    }
+	 @RequestMapping(value = "/grafico", method = RequestMethod.GET)
+	 public ModelAndView grafico() {
+	String a = "[40,80,140,200,250,330]";
+		 ModelAndView mv = new ModelAndView("gestao/testeGrafico");
+		 mv.addObject("peso",a);
+	 return mv;
+	 }
 
+	// @RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
+	// public void buscarBovinoPorMae() {
+	// Peso peso;
+	// for (int i = 1; i <= 25; i++) {
+	// peso = new Peso();
+	//
+	// SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+	// Random gerador = new Random();
+	//
+	// Date data;
+	// try {
+	// data = formato.parse("01-06-2015");
+	// peso.setDataPesagem(data);
+	//
+	// int peso1 = gerador.nextInt((460 - 440) + 1) + 440;
+	//
+	// peso.setPeso(Double.valueOf(String.valueOf(peso1)));
+	// gestaoClient.salvarPesagem(peso, i);
+	// } catch (ParseException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	//
+	//
+	//
+	//
+	// }
+	//
+	// }
 
 	// ------------------------------ MODELATRRIBUTE
 	// --------------------------------------------------------
@@ -578,14 +589,13 @@ public class GestaoController {
 
 	@ModelAttribute("bovinos")
 	public List<Bovino> todosBovinos() {
-		List<Bovino> bovinos = bovinoClient.listarPorNome("todos","nome");
+		List<Bovino> bovinos = bovinoClient.listarPorNome("todos", "nome");
 
 		return bovinos;
 	}
 
-	
 	public List<Inseminacao> todasInseminacao(List<Inseminacao> inseminacoes) {
-		
+
 		Bovino bovino;
 		for (int i = 0; i < inseminacoes.size(); i++) {
 			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(inseminacoes.get(i).getMatriz()));
@@ -595,9 +605,8 @@ public class GestaoController {
 		return inseminacoes;
 	}
 
-	
 	public List<DiagnosticoGestacao> todosDG(List<DiagnosticoGestacao> dg) {
-		 
+
 		Bovino bovino;
 		for (int i = 0; i < dg.size(); i++) {
 			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(dg.get(i).getIdFichaMatriz()));
@@ -607,9 +616,8 @@ public class GestaoController {
 		return dg;
 	}
 
-	
 	public List<Parto> todosPartos(List<Parto> partos) {
-		
+
 		Bovino bovino;
 		for (int i = 0; i < partos.size(); i++) {
 			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(partos.get(i).getIdFichaMatriz()));
@@ -619,9 +627,8 @@ public class GestaoController {
 		return partos;
 	}
 
-	
 	public List<Morte> todosMortos(List<Morte> morte) {
-		
+
 		Bovino bovino;
 		for (int i = 0; i < morte.size(); i++) {
 			bovino = bovinoClient.listarUm(Long.parseLong(morte.get(i).getIdBovino()));
@@ -631,9 +638,8 @@ public class GestaoController {
 		return morte;
 	}
 
-	
 	public List<Desmama> todasDesmama(List<Desmama> desmama) {
-		
+
 		Bovino bovino;
 		for (int i = 0; i < desmama.size(); i++) {
 			bovino = bovinoClient.listarUm(Long.parseLong(desmama.get(i).getIdBovino()));
@@ -646,27 +652,26 @@ public class GestaoController {
 
 		return desmama;
 	}
-	
+
 	public List<Venda> todosVendidos(List<Venda> venda) {
-		
+
 		Bovino bovino;
 		for (int i = 0; i < venda.size(); i++) {
 			bovino = bovinoClient.listarUm(Long.parseLong(venda.get(i).getIdBovino()));
 			venda.get(i).setIdBovino(bovino.getNomeBovino());
-			
+
 		}
 
 		return venda;
 	}
-	
-	
+
 	public List<Abatido> todosAbatidos(List<Abatido> abatido) {
-		
+
 		Bovino bovino;
 		for (int i = 0; i < abatido.size(); i++) {
 			bovino = bovinoClient.listarUm(Long.parseLong(abatido.get(i).getIdBovino()));
 			abatido.get(i).setIdBovino(bovino.getNomeBovino());
-			
+
 		}
 
 		return abatido;
