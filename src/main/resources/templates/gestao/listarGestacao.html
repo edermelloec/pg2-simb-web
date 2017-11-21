@@ -24,7 +24,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-6">
-				
+
 					<h3>Selecione o Tipo de Busca</h3>
 				</div>
 			</div>
@@ -50,8 +50,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="input-group">
-								<input class="form-control"
-									placeholder="Informe sua Busca!"
+								<input class="form-control" placeholder="Informe sua Busca!"
 									autofocus="autofocus" name="descricao"></input> <span
 									class="input-group-btn ">
 									<button type="submit" class="btn btn-default ">
@@ -101,16 +100,21 @@
 				</table>
 			</div>
 			<div class="row">
-				<div
-					class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
+				<div class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
 					<span class="aw-pagination-info"
 						th:text="${#lists.size(diagGest)} + ' diagnosticos de gestação encontrados'">
 
 					</span>
+
 				</div>
 			</div>
+			<div class="row">
+			<div class="col-sm-5 col-sm-offset-3">
+				<input id="gestacao" type="hidden" th:value='${gestacao}' />
 
-
+				<div layout:include="/gestao/GraficoGestacao"></div>
+			</div>
+			</div>
 		</div>
 
 	</section>

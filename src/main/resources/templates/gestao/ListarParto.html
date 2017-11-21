@@ -73,8 +73,8 @@
 
 							<th class="table-pesq-bovino-col-center">Data Parto</th>
 							<th class="table-pesq-bovino-col-center">Matriz</th>
-							<th class="table-pesq-bovino-col-center">Descrição</th>
 							<th class="table-pesq-bovino-col-center">Status</th>
+							<th class="table-pesq-bovino-col-center">Descrição</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -84,8 +84,8 @@
 								th:text="${#dates.format(p.dataParto, 'dd/MM/yyyy')}"></td>
 							<td class="table-pesq-bovino-col-center"
 								th:text="${p.idFichaMatriz}"></td>
-							<td class="table-pesq-bovino-col-center" th:text="${p.descricao}"></td>
 							<td class="table-pesq-bovino-col-center" th:text="${p.status}"></td>
+							<td class="table-pesq-bovino-col-center" th:text="${p.descricao}"></td>
 						</tr>
 						<tr th:if="${partos.empty}">
 							<td colspan="9" class="table-pesq-bovino-col-center">Nenhum
@@ -103,6 +103,13 @@
 
 					</span>
 				</div>
+			</div>
+			<div class="row">
+			<div class="col-sm-5 col-sm-offset-3">
+				<input id="parto" type="hidden" th:value='${parto}' />
+
+				<div layout:include="/gestao/GraficoParto"></div>
+			</div>
 			</div>
 
 

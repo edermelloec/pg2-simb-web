@@ -232,7 +232,14 @@ public class GestaoController {
 	@RequestMapping(value = "/listar/inseminacao", method = RequestMethod.GET)
 	public ModelAndView listaInseminacao(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
 		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao, tipoBusca);
-
+		for(int i=0;i<inseminacoes.size();i++) {
+			if(inseminacoes.get(i).getMatriz()==null) {
+				inseminacoes.get(i).setMatriz("-1");
+			}
+			if(inseminacoes.get(i).getPrevisaoParto()==null) {
+				inseminacoes.get(i).setPrevisaoParto(new Date());
+			}
+		}
 		ModelAndView mv = new ModelAndView("gestao/listarInseminacao");
 		mv.addObject("inseminacoes", todasInseminacao(inseminacoes));
 
@@ -242,18 +249,54 @@ public class GestaoController {
 	@RequestMapping(value = "/listar/gestacao", method = RequestMethod.GET)
 	public ModelAndView listaDiagnosticoGestacao(@RequestParam(defaultValue = "todos") String descricao,
 			String tipoBusca) {
+		String gest="[0,0]";
+		String resultado;
+		int c=0;
+		int v=0;
+		
 		List<DiagnosticoGestacao> dg = gestaoClient.listarDG(descricao, tipoBusca);
-
+		if(dg!=null) {
+			for(int i=0;i<dg.size();i++) {
+				resultado = String.valueOf(dg.get(i).getResultado());
+				if("Cheia".equals(resultado)) {
+					c++;
+				}else {
+					v++;
+				}
+			}
+			gest = "["+c+","+v+"]";
+		}
+		
 		ModelAndView mv = new ModelAndView("gestao/listarGestacao");
 		mv.addObject("diagGest", todosDG(dg));
+		mv.addObject("gestacao", gest);
 		return mv;
 	}
 
 	@RequestMapping(value = "/listar/parto", method = RequestMethod.GET)
 	public ModelAndView listaParto(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
-		List<Parto> parto = gestaoClient.listarParto(descricao, tipoBusca);
+		List<Parto> partos = gestaoClient.listarParto(descricao, tipoBusca);
+		String parto="[0,0]";
+		String resultado;
+		int v=0;
+		int m=0;
+		if(partos!=null) {
+			for(int i=0;i<partos.size();i++) {
+				resultado = String.valueOf(partos.get(i).getStatus());
+				if("Vivo".equals(resultado)) {
+					v++;
+				}else {
+					m++;
+				}
+			}
+			parto = "["+v+","+m+"]";
+		}
+		
+		
+		
 		ModelAndView mv = new ModelAndView("gestao/listarParto");
-		mv.addObject("partos", todosPartos(parto));
+		mv.addObject("partos", todosPartos(partos));
+		mv.addObject("parto", parto);
 		return mv;
 	}
 
@@ -297,6 +340,7 @@ public class GestaoController {
 	public ModelAndView listaPesagem(@RequestParam(defaultValue = "todos") String descricao) {
 		Double ganho = 0d;
 		List<Bovino> bovinos = bovinoClient.listarPorNome(descricao, "nome");
+		organizaLista(bovinos.get(0));
 		List<Pesagem> pesos = new ArrayList<>();
 		String peso = "[";
 		if (bovinos != null) {
@@ -325,8 +369,6 @@ public class GestaoController {
 			}else {
 				peso = "]]]]]";
 			}
-		}else {
-			peso = "]]]]]";
 		}
 		
 		ModelAndView mv = new ModelAndView("gestao/listarPesagem");
@@ -350,7 +392,7 @@ public class GestaoController {
 
 	@RequestMapping(value = "/salvarParto", method = RequestMethod.POST)
 	public String salvarParto(@Validated Parto p, RedirectAttributes attributes) {
-		System.out.println(p.getDataParto());
+		
 		gestaoClient.salvarParto(p);
 		attributes.addFlashAttribute("mensagem", "Parto salvo com sucesso!");
 		return "redirect:adicionar/criarBovino";
@@ -434,7 +476,7 @@ public class GestaoController {
 
 			return adicionarAbatido(abatido);
 		}
-		System.out.println(abatido.toString());
+		
 		gestaoClient.salvarAbatido(abatido);
 		attributes.addFlashAttribute("mensagem", "Bovino abatido salvo com sucesso!");
 
@@ -476,7 +518,7 @@ public class GestaoController {
 
 	@RequestMapping(value = "/ecc", method = RequestMethod.POST)
 	public String salvarEcc(Ecc ecc, Integer id, RedirectAttributes attributes) {
-		System.out.println("escore: " + ecc.getEscore() + " , " + id);
+		
 
 		gestaoClient.salvarEcc(ecc, id);
 		attributes.addFlashAttribute("mensagem", "Ecc salvo com sucesso!");
@@ -514,8 +556,7 @@ public class GestaoController {
 
 	@RequestMapping(value = "/touro", method = RequestMethod.POST)
 	public String salvarTouro(Touro touro, RedirectAttributes attributes) {
-		System.out
-				.println("TEST :" + touro.getIdBovino() + " , " + touro.getStatus() + " , " + touro.getIdFichaTouro());
+		
 
 		gestaoClient.salvarTouro(touro);
 		attributes.addFlashAttribute("mensagem", "Touro salva com sucesso!");
@@ -694,6 +735,43 @@ public class GestaoController {
 		}
 
 		return abatido;
+	}
+	public Bovino organizaLista(Bovino bovino){
+		Peso peso = new Peso();
+		if(bovino!=null) {
+			if(bovino.getPeso().size()>1) {
+				for(int j=0;j<bovino.getPeso().size()-1;j++) {
+				for(int i=0;i<bovino.getPeso().size()-1;i++) {
+					
+					if(bovino.getPeso().get(i).getDataPesagem().getTime() > bovino.getPeso().get(i+1).getDataPesagem().getTime()) {
+						
+						peso.setDataPesagem(bovino.getPeso().get(i).getDataPesagem());
+						peso.setIdPeso(bovino.getPeso().get(i).getIdPeso());
+						peso.setPeso(bovino.getPeso().get(i).getPeso());
+						peso.setStatus(bovino.getPeso().get(i).getStatus());
+						
+						bovino.getPeso().get(i).setDataPesagem( bovino.getPeso().get(i+1).getDataPesagem());
+						bovino.getPeso().get(i).setIdPeso(bovino.getPeso().get(i+1).getIdPeso());
+						bovino.getPeso().get(i).setPeso(bovino.getPeso().get(i+1).getPeso());
+						bovino.getPeso().get(i).setStatus(bovino.getPeso().get(i+1).getStatus());
+						
+						
+						
+						
+						bovino.getPeso().get(i+1).setDataPesagem(peso.getDataPesagem());
+						bovino.getPeso().get(i+1).setIdPeso(peso.getIdPeso());
+						bovino.getPeso().get(i+1).setPeso((peso.getPeso()));
+						bovino.getPeso().get(i+1).setStatus((peso.getStatus()));
+						
+					}
+					
+				}
+				}
+				
+			}
+		}
+
+		return bovino;
 	}
 
 	@ModelAttribute("todasRacasBovino")
