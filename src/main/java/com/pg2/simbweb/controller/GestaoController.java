@@ -298,23 +298,42 @@ public class GestaoController {
 		Double ganho = 0d;
 		List<Bovino> bovinos = bovinoClient.listarPorNome(descricao, "nome");
 		List<Pesagem> pesos = new ArrayList<>();
+		String peso = "[";
 		if (bovinos != null) {
+			Pesagem p;
 			
 			if (bovinos.get(0).getPeso().size() > 1) {
 				for (int i = 0; i < bovinos.get(0).getPeso().size()-1; i++) {
 					ganho = bovinos.get(0).getPeso().get(i+1).getPeso()
 							- bovinos.get(0).getPeso().get(i).getPeso();
-					Pesagem p = new Pesagem();
+					
+					if(i==0) {
+						p = new Pesagem();
+						p.setGanho(bovinos.get(0).getPeso().get(i).getPeso());
+						p.setPeso(Double.valueOf(String.valueOf(i+1)));
+						pesos.add(p);
+						peso = peso +bovinos.get(0).getPeso().get(i).getPeso();
+					}
+					p = new Pesagem();
 					p.setGanho(ganho);
-					p.setPeso(Double.valueOf(String.valueOf(i+1)));
+					p.setPeso(Double.valueOf(String.valueOf(i+2)));
 					pesos.add(p);
+					peso = peso +","+bovinos.get(0).getPeso().get(i+1).getPeso();
 				}
-
+				peso = peso +"]";
+				
+			}else {
+				peso = "]]]]]";
 			}
+		}else {
+			peso = "]]]]]";
 		}
+		
 		ModelAndView mv = new ModelAndView("gestao/listarPesagem");
 		mv.addObject("bovinopeso", bovinos.get(0));
 		mv.addObject("ganhoPeso", pesos);
+		mv.addObject("pesos", peso);
+		
 		return mv;
 	}
 
@@ -528,13 +547,13 @@ public class GestaoController {
 		attributes.addFlashAttribute("mensagem", "Inseminação salva com sucesso!");
 		return new ModelAndView("redirect:adicionar/inseminacao");
 	}
-	 @RequestMapping(value = "/grafico", method = RequestMethod.GET)
-	 public ModelAndView grafico() {
-	String a = "[40,80,140,200,250,330]";
-		 ModelAndView mv = new ModelAndView("gestao/testeGrafico");
-		 mv.addObject("peso",a);
-	 return mv;
-	 }
+//	 @RequestMapping(value = "/grafico", method = RequestMethod.GET)
+//	 public ModelAndView grafico() {
+//	String a = "['40','80','140','200','250','330']";
+//		 ModelAndView mv = new ModelAndView("gestao/testeGrafico");
+//		 mv.addObject("peso",a);
+//	 return mv;
+//	 }
 
 	// @RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
 	// public void buscarBovinoPorMae() {

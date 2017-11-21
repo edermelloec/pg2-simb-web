@@ -1,0 +1,96 @@
+<html>
+<head>
+<meta charset="UTF-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
+<title>Grafico Pesos</title>
+</head>
+<body>
+	<canvas class="line-chart"></canvas>
+
+	<script
+		src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+	<script type="text/javascript" >
+		var ctx = document.getElementsByClassName("line-chart");
+		
+		
+		var data = document.getElementById('pesos').value;
+		
+		var passo = true;
+		var i=1;
+		var peso;
+		var pos=0;
+		var pesos=[];
+		var qtd=[];
+		while(passo){
+			
+			
+			
+			
+			if(data.substring(i,i+1) == "]"){
+				
+				passo = false;
+				
+			}else if(data.substring(i,i+1) != ","){
+				var inicio = i;
+				var compara = data.substring(i,i+1);
+				
+				while(compara != ","){
+					
+					
+					i=i+1;
+					compara = data.substring(i,i+1);
+					
+					if (data.substring(i,i+1) == "]") { 
+						compara = ",";
+						passo = false;
+					}
+				}
+				
+				peso = data.substring(inicio,i);
+				
+				pesos[pos] = peso;
+				qtd[pos] = pos;
+				pos=pos+1;
+				
+				
+				
+			}
+			i=i+1;
+			
+			
+			
+			
+			
+		}
+		
+		//document.write(pos);
+		
+		var chartGraph = new Chart(ctx,{
+			type: 'line',
+			data:{
+				labels: qtd,
+				datasets:[{
+					label: "Peso(Kgs)",
+					data: pesos,
+					borderWidth: 3,
+					borderColor: 'rgba(0,153,0,0.85)',
+					backgroundColor: 'transparent'
+				}]
+			},
+			options:{
+				title:{
+					display:true,
+					fontSize: 15,
+					text: "PESAGENS"
+				},
+				labels: {
+					fontStyle: "bold"
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>
