@@ -232,11 +232,11 @@ public class GestaoController {
 	@RequestMapping(value = "/listar/inseminacao", method = RequestMethod.GET)
 	public ModelAndView listaInseminacao(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
 		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao, tipoBusca);
-		for(int i=0;i<inseminacoes.size();i++) {
-			if(inseminacoes.get(i).getMatriz()==null) {
+		for (int i = 0; i < inseminacoes.size(); i++) {
+			if (inseminacoes.get(i).getMatriz() == null) {
 				inseminacoes.get(i).setMatriz("-1");
 			}
-			if(inseminacoes.get(i).getPrevisaoParto()==null) {
+			if (inseminacoes.get(i).getPrevisaoParto() == null) {
 				inseminacoes.get(i).setPrevisaoParto(new Date());
 			}
 		}
@@ -249,24 +249,24 @@ public class GestaoController {
 	@RequestMapping(value = "/listar/gestacao", method = RequestMethod.GET)
 	public ModelAndView listaDiagnosticoGestacao(@RequestParam(defaultValue = "todos") String descricao,
 			String tipoBusca) {
-		String gest="[0,0]";
+		String gest = "[0,0]";
 		String resultado;
-		int c=0;
-		int v=0;
-		
+		int c = 0;
+		int v = 0;
+
 		List<DiagnosticoGestacao> dg = gestaoClient.listarDG(descricao, tipoBusca);
-		if(dg!=null) {
-			for(int i=0;i<dg.size();i++) {
+		if (dg != null) {
+			for (int i = 0; i < dg.size(); i++) {
 				resultado = String.valueOf(dg.get(i).getResultado());
-				if("Cheia".equals(resultado)) {
+				if ("Cheia".equals(resultado)) {
 					c++;
-				}else {
+				} else {
 					v++;
 				}
 			}
-			gest = "["+c+","+v+"]";
+			gest = "[" + c + "," + v + "]";
 		}
-		
+
 		ModelAndView mv = new ModelAndView("gestao/listarGestacao");
 		mv.addObject("diagGest", todosDG(dg));
 		mv.addObject("gestacao", gest);
@@ -276,24 +276,22 @@ public class GestaoController {
 	@RequestMapping(value = "/listar/parto", method = RequestMethod.GET)
 	public ModelAndView listaParto(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
 		List<Parto> partos = gestaoClient.listarParto(descricao, tipoBusca);
-		String parto="[0,0]";
+		String parto = "[0,0]";
 		String resultado;
-		int v=0;
-		int m=0;
-		if(partos!=null) {
-			for(int i=0;i<partos.size();i++) {
+		int v = 0;
+		int m = 0;
+		if (partos != null) {
+			for (int i = 0; i < partos.size(); i++) {
 				resultado = String.valueOf(partos.get(i).getStatus());
-				if("Vivo".equals(resultado)) {
+				if ("Vivo".equals(resultado)) {
 					v++;
-				}else {
+				} else {
 					m++;
 				}
 			}
-			parto = "["+v+","+m+"]";
+			parto = "[" + v + "," + m + "]";
 		}
-		
-		
-		
+
 		ModelAndView mv = new ModelAndView("gestao/listarParto");
 		mv.addObject("partos", todosPartos(partos));
 		mv.addObject("parto", parto);
@@ -345,37 +343,36 @@ public class GestaoController {
 		String peso = "[";
 		if (bovinos != null) {
 			Pesagem p;
-			
+
 			if (bovinos.get(0).getPeso().size() > 1) {
-				for (int i = 0; i < bovinos.get(0).getPeso().size()-1; i++) {
-					ganho = bovinos.get(0).getPeso().get(i+1).getPeso()
-							- bovinos.get(0).getPeso().get(i).getPeso();
-					
-					if(i==0) {
+				for (int i = 0; i < bovinos.get(0).getPeso().size() - 1; i++) {
+					ganho = bovinos.get(0).getPeso().get(i + 1).getPeso() - bovinos.get(0).getPeso().get(i).getPeso();
+
+					if (i == 0) {
 						p = new Pesagem();
 						p.setGanho(bovinos.get(0).getPeso().get(i).getPeso());
-						p.setPeso(Double.valueOf(String.valueOf(i+1)));
+						p.setPeso(Double.valueOf(String.valueOf(i + 1)));
 						pesos.add(p);
-						peso = peso +bovinos.get(0).getPeso().get(i).getPeso();
+						peso = peso + bovinos.get(0).getPeso().get(i).getPeso();
 					}
 					p = new Pesagem();
 					p.setGanho(ganho);
-					p.setPeso(Double.valueOf(String.valueOf(i+2)));
+					p.setPeso(Double.valueOf(String.valueOf(i + 2)));
 					pesos.add(p);
-					peso = peso +","+bovinos.get(0).getPeso().get(i+1).getPeso();
+					peso = peso + "," + bovinos.get(0).getPeso().get(i + 1).getPeso();
 				}
-				peso = peso +"]";
-				
-			}else {
+				peso = peso + "]";
+
+			} else {
 				peso = "]]]]]";
 			}
 		}
-		
+
 		ModelAndView mv = new ModelAndView("gestao/listarPesagem");
 		mv.addObject("bovinopeso", bovinos.get(0));
 		mv.addObject("ganhoPeso", pesos);
 		mv.addObject("pesos", peso);
-		
+
 		return mv;
 	}
 
@@ -392,7 +389,7 @@ public class GestaoController {
 
 	@RequestMapping(value = "/salvarParto", method = RequestMethod.POST)
 	public String salvarParto(@Validated Parto p, RedirectAttributes attributes) {
-		
+
 		gestaoClient.salvarParto(p);
 		attributes.addFlashAttribute("mensagem", "Parto salvo com sucesso!");
 		return "redirect:adicionar/criarBovino";
@@ -476,7 +473,7 @@ public class GestaoController {
 
 			return adicionarAbatido(abatido);
 		}
-		
+
 		gestaoClient.salvarAbatido(abatido);
 		attributes.addFlashAttribute("mensagem", "Bovino abatido salvo com sucesso!");
 
@@ -518,7 +515,6 @@ public class GestaoController {
 
 	@RequestMapping(value = "/ecc", method = RequestMethod.POST)
 	public String salvarEcc(Ecc ecc, Integer id, RedirectAttributes attributes) {
-		
 
 		gestaoClient.salvarEcc(ecc, id);
 		attributes.addFlashAttribute("mensagem", "Ecc salvo com sucesso!");
@@ -556,7 +552,6 @@ public class GestaoController {
 
 	@RequestMapping(value = "/touro", method = RequestMethod.POST)
 	public String salvarTouro(Touro touro, RedirectAttributes attributes) {
-		
 
 		gestaoClient.salvarTouro(touro);
 		attributes.addFlashAttribute("mensagem", "Touro salva com sucesso!");
@@ -588,43 +583,59 @@ public class GestaoController {
 		attributes.addFlashAttribute("mensagem", "Inseminação salva com sucesso!");
 		return new ModelAndView("redirect:adicionar/inseminacao");
 	}
-//	 @RequestMapping(value = "/grafico", method = RequestMethod.GET)
-//	 public ModelAndView grafico() {
-//	String a = "['40','80','140','200','250','330']";
-//		 ModelAndView mv = new ModelAndView("gestao/testeGrafico");
-//		 mv.addObject("peso",a);
-//	 return mv;
-//	 }
 
-	// @RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
-	// public void buscarBovinoPorMae() {
-	// Peso peso;
-	// for (int i = 1; i <= 25; i++) {
-	// peso = new Peso();
-	//
-	// SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-	// Random gerador = new Random();
-	//
-	// Date data;
-	// try {
-	// data = formato.parse("01-06-2015");
-	// peso.setDataPesagem(data);
-	//
-	// int peso1 = gerador.nextInt((460 - 440) + 1) + 440;
-	//
-	// peso.setPeso(Double.valueOf(String.valueOf(peso1)));
-	// gestaoClient.salvarPesagem(peso, i);
-	// } catch (ParseException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	//
-	//
-	//
-	//
-	// }
-	//
-	// }
+//	@RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
+//	public void buscarBovinoPorMae() {
+//		//Peso peso;
+//		Ecc ecc;
+//		int min = 7;
+//		
+//		int peso1 = 30;
+//		String data1 = "01-01-2017";
+//		//for (int k = 1; k <= 9; k++) {
+//			for (int j = 1; j <= 4; j++) {
+//				for (int i = 26; i <= 55; i++) {
+//					
+//					//peso = new Peso();
+//					ecc = new Ecc();
+////					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+//					Random gerador = new Random();
+////
+////					Date data;
+//					//try {
+//						//data = formato.parse(data1);
+//						//peso.setDataPesagem(data);
+//
+//						peso1 = gerador.nextInt((9) + 1);
+//						ecc.setEscore(peso1);
+//						gestaoClient.salvarEcc(ecc, i);
+//						//peso.setPeso(Double.valueOf(String.valueOf(peso1)));
+//						//gestaoClient.salvarPesagem(peso, i);
+//					//} catch (ParseException e) {
+//						// TODO Auto-generated catch block
+//						//e.printStackTrace();
+//					//}
+//
+//				}
+////				min = min + 7;
+////				
+////				if ("01".equals(data1.substring(0, 2))) {
+////					data1 = "08-" + data1.substring(3, data1.length());
+////
+////				} else if ("08".equals(data1.substring(0, 2))) {
+////					data1 = "17-" + data1.substring(3, data1.length());
+////
+////				} else if ("17".equals(data1.substring(0, 2))) {
+////					data1 = "27-" + data1.substring(3, data1.length());
+////				}
+//
+//			}
+//			//int mes= k+1;
+//			//data1 ="01-0"+mes+"-2017";
+//			
+//		//}
+//
+//	}
 
 	// ------------------------------ MODELATRRIBUTE
 	// --------------------------------------------------------
@@ -736,38 +747,37 @@ public class GestaoController {
 
 		return abatido;
 	}
-	public Bovino organizaLista(Bovino bovino){
+
+	public Bovino organizaLista(Bovino bovino) {
 		Peso peso = new Peso();
-		if(bovino!=null) {
-			if(bovino.getPeso().size()>1) {
-				for(int j=0;j<bovino.getPeso().size()-1;j++) {
-				for(int i=0;i<bovino.getPeso().size()-1;i++) {
-					
-					if(bovino.getPeso().get(i).getDataPesagem().getTime() > bovino.getPeso().get(i+1).getDataPesagem().getTime()) {
-						
-						peso.setDataPesagem(bovino.getPeso().get(i).getDataPesagem());
-						peso.setIdPeso(bovino.getPeso().get(i).getIdPeso());
-						peso.setPeso(bovino.getPeso().get(i).getPeso());
-						peso.setStatus(bovino.getPeso().get(i).getStatus());
-						
-						bovino.getPeso().get(i).setDataPesagem( bovino.getPeso().get(i+1).getDataPesagem());
-						bovino.getPeso().get(i).setIdPeso(bovino.getPeso().get(i+1).getIdPeso());
-						bovino.getPeso().get(i).setPeso(bovino.getPeso().get(i+1).getPeso());
-						bovino.getPeso().get(i).setStatus(bovino.getPeso().get(i+1).getStatus());
-						
-						
-						
-						
-						bovino.getPeso().get(i+1).setDataPesagem(peso.getDataPesagem());
-						bovino.getPeso().get(i+1).setIdPeso(peso.getIdPeso());
-						bovino.getPeso().get(i+1).setPeso((peso.getPeso()));
-						bovino.getPeso().get(i+1).setStatus((peso.getStatus()));
-						
+		if (bovino != null) {
+			if (bovino.getPeso().size() > 1) {
+				for (int j = 0; j < bovino.getPeso().size() - 1; j++) {
+					for (int i = 0; i < bovino.getPeso().size() - 1; i++) {
+
+						if (bovino.getPeso().get(i).getDataPesagem().getTime() > bovino.getPeso().get(i + 1)
+								.getDataPesagem().getTime()) {
+
+							peso.setDataPesagem(bovino.getPeso().get(i).getDataPesagem());
+							peso.setIdPeso(bovino.getPeso().get(i).getIdPeso());
+							peso.setPeso(bovino.getPeso().get(i).getPeso());
+							peso.setStatus(bovino.getPeso().get(i).getStatus());
+
+							bovino.getPeso().get(i).setDataPesagem(bovino.getPeso().get(i + 1).getDataPesagem());
+							bovino.getPeso().get(i).setIdPeso(bovino.getPeso().get(i + 1).getIdPeso());
+							bovino.getPeso().get(i).setPeso(bovino.getPeso().get(i + 1).getPeso());
+							bovino.getPeso().get(i).setStatus(bovino.getPeso().get(i + 1).getStatus());
+
+							bovino.getPeso().get(i + 1).setDataPesagem(peso.getDataPesagem());
+							bovino.getPeso().get(i + 1).setIdPeso(peso.getIdPeso());
+							bovino.getPeso().get(i + 1).setPeso((peso.getPeso()));
+							bovino.getPeso().get(i + 1).setStatus((peso.getStatus()));
+
+						}
+
 					}
-					
 				}
-				}
-				
+
 			}
 		}
 
