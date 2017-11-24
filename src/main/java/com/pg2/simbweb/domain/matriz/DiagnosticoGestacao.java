@@ -26,6 +26,12 @@ public class DiagnosticoGestacao {
 	
 	
 	
+	@Override
+	public String toString() {
+		return "DiagnosticoGestacao [idFichaMatriz=" + idFichaMatriz + ", resultado=" + resultado + ", descricao="
+				+ descricao + ", dataInclusao=" + dataInclusao + ", dataResultado=" + dataResultado + "]";
+	}
+
 	public Date getDataResultado() {
 		return dataResultado;
 	}

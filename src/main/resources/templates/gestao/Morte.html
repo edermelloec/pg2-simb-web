@@ -18,20 +18,20 @@
 		</div>
 
 		<div class="container-fluid">
-			<form class="form-horizontal" method="POST"
-				action="/gestao/morte" th:action="@{/gestao/morte}" th:object="${morte}">
+			<form class="form-horizontal" method="POST" action="/gestao/morte"
+				th:action="@{/gestao/morte}" th:object="${morte}">
 				<div layout:include="layout/MensagemGeral"></div>
-    			<div layout:include="layout/MensagemErro"></div>
+				<div layout:include="layout/MensagemErro"></div>
 
-			
+
 
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="col-sm-10">
 							<div class="form-group">
-								<label for="descricao">Data da Morte</label> <input
-									type="text" class="form-control" id="dataDaInseminacao"
-									name="dataMorte" th:field="*{dataMorte}" />
+								<label for="descricao">Data da Morte</label> <input type="text"
+									class="form-control" id="dataDaInseminacao" name="dataMorte"
+									th:field="*{dataMorte}" />
 							</div>
 						</div>
 					</div>
@@ -46,15 +46,41 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 				<div class="row">
-				<div class="col-sm-5">
+					<div class="col-sm-5">
 						<div class="col-sm-10">
 							<div class="form-group">
-								<label for="causa">Causa da Morte</label> <input
+								<!-- <label for="causa">Causa da Morte</label> <input
 									type="text" class="form-control" id="causa"
-									name="causa" th:field="*{causa}" />
+									name="causa" th:field="*{causa}" /> -->
+
+								<label for="causa">Causa da Morte</label> <select
+									class="form-control" id="causa" name="causa">
+									<option value="outras">Outras</option>
+									<option value="Doença">Doença</option>
+									<option value="Estresse Térmico">Estresse Térmico</option>
+									<option value="Pancadas">Pancadas</option>
+									<option value="Aborto">Aborto</option>
+									<option value="Habilidade Materna">Habilidade Materna</option>
+									<option value="Problemas Com Parto">Problemas Com Parto</option>
+									<option value="Predadores">Predadores</option>
+									<option value="Cobra">Cobra</option>
+									<option value="Nutrição">Nutrição</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-5">
+						<div class="col-sm-10">
+							<div class="form-group">
+								<label for="outras">Outras</label> <input
+									type="text" class="form-control" id="outras"
+									name="outras"/>
 							</div>
 						</div>
 					</div>

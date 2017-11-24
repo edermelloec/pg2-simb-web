@@ -16,9 +16,11 @@ import com.pg2.simbweb.domain.bovino.Bovino;
 import com.pg2.simbweb.domain.bovino.Ecc;
 import com.pg2.simbweb.domain.bovino.Gestao;
 import com.pg2.simbweb.domain.bovino.Peso;
+import com.pg2.simbweb.domain.bovino.Proprietario;
 import com.pg2.simbweb.domain.matriz.DiagnosticoGestacao;
 import com.pg2.simbweb.domain.matriz.FichaMatriz;
 import com.pg2.simbweb.domain.matriz.Inseminacao;
+import com.pg2.simbweb.domain.matriz.Inseminador;
 import com.pg2.simbweb.domain.matriz.Parto;
 import com.pg2.simbweb.domain.matriz.TrueAndFalse;
 import com.pg2.simbweb.gestao.Abatido;
@@ -359,9 +361,9 @@ public class GestaoClient {
 		return response.getHeaders().getLocation().toString();
 	}
 
-	public String salvarInseminacao(Inseminacao i) {
+	public String salvarInseminacao(Long id,Inseminacao i) {
 
-		RequestEntity<Inseminacao> request = RequestEntity.post(URI.create(URI_INSEMINACAO)).body(i);
+		RequestEntity<Inseminacao> request = RequestEntity.post(URI.create(URI_+"/bovino/"+id+"/inseminacao")).body(i);
 
 		ResponseEntity<Void> response = restTemplate.exchange(request, Void.class);
 
@@ -441,6 +443,16 @@ public class GestaoClient {
 		ResponseEntity<Void> response = restTemplate.exchange(request, Void.class);
 
 		return response.getHeaders().getLocation().toString();
+	}
+	
+	public List<Inseminador> listarInseminador(){
+		
+		RequestEntity<Void> request = RequestEntity
+				.get(URI.create(URI_+"/inseminador"))
+				.build();
+		ResponseEntity<Inseminador[]> response = restTemplate.exchange(request, Inseminador[].class);
+		return Arrays.asList(response.getBody());
+			
 	}
 
 	public List<TrueAndFalse> listarTrueAndFalse() {

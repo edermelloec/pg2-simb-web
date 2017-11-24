@@ -38,6 +38,7 @@ import com.pg2.simbweb.domain.funcionario.Funcionario;
 import com.pg2.simbweb.domain.matriz.DiagnosticoGestacao;
 import com.pg2.simbweb.domain.matriz.FichaMatriz;
 import com.pg2.simbweb.domain.matriz.Inseminacao;
+import com.pg2.simbweb.domain.matriz.Inseminador;
 import com.pg2.simbweb.domain.matriz.Parto;
 import com.pg2.simbweb.domain.matriz.TrueAndFalse;
 import com.pg2.simbweb.domain.tarefa.Tarefa;
@@ -212,7 +213,10 @@ public class GestaoController {
 	@RequestMapping(value = "/salvarDiagnostico", method = RequestMethod.POST)
 	public ModelAndView salvarDiagnostico(@Valid DiagnosticoGestacao diagnosticoGestacao,
 			RedirectAttributes attributes) {
-
+		
+		Bovino bovino = bovinoClient.listarUm(Long.valueOf(diagnosticoGestacao.getIdFichaMatriz()));
+		diagnosticoGestacao.setIdFichaMatriz(String.valueOf(bovino.getFichaMatriz().getIdFichaMatriz()));
+		
 		gestaoClient.salvarDiagnosticoGestacao(diagnosticoGestacao);
 		attributes.addFlashAttribute("mensagem", "Diagnostico salvo com sucesso!");
 		return new ModelAndView("redirect:adicionar/gestacao");
@@ -229,22 +233,22 @@ public class GestaoController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/listar/inseminacao", method = RequestMethod.GET)
-	public ModelAndView listaInseminacao(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
-		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao, tipoBusca);
-		for (int i = 0; i < inseminacoes.size(); i++) {
-			if (inseminacoes.get(i).getMatriz() == null) {
-				inseminacoes.get(i).setMatriz("-1");
-			}
-			if (inseminacoes.get(i).getPrevisaoParto() == null) {
-				inseminacoes.get(i).setPrevisaoParto(new Date());
-			}
-		}
-		ModelAndView mv = new ModelAndView("gestao/listarInseminacao");
-		mv.addObject("inseminacoes", todasInseminacao(inseminacoes));
-
-		return mv;
-	}
+//	@RequestMapping(value = "/listar/inseminacao", method = RequestMethod.GET)
+//	public ModelAndView listaInseminacao(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
+//		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao, tipoBusca);
+//		for (int i = 0; i < inseminacoes.size(); i++) {
+//			if (inseminacoes.get(i).getMatriz() == null) {
+//				inseminacoes.get(i).setMatriz("-1");
+//			}
+//			if (inseminacoes.get(i).getPrevisaoParto() == null) {
+//				inseminacoes.get(i).setPrevisaoParto(new Date());
+//			}
+//		}
+//		ModelAndView mv = new ModelAndView("gestao/listarInseminacao");
+//		mv.addObject("inseminacoes", todasInseminacao(inseminacoes));
+//
+//		return mv;
+//	}
 
 	@RequestMapping(value = "/listar/gestacao", method = RequestMethod.GET)
 	public ModelAndView listaDiagnosticoGestacao(@RequestParam(defaultValue = "todos") String descricao,
@@ -389,7 +393,10 @@ public class GestaoController {
 
 	@RequestMapping(value = "/salvarParto", method = RequestMethod.POST)
 	public String salvarParto(@Validated Parto p, RedirectAttributes attributes) {
-
+		Bovino bovino = bovinoClient.listarUm(Long.valueOf(p.getIdFichaMatriz()));
+		p.setIdFichaMatriz(String.valueOf(bovino.getFichaMatriz().getIdFichaMatriz()));
+		
+		
 		gestaoClient.salvarParto(p);
 		attributes.addFlashAttribute("mensagem", "Parto salvo com sucesso!");
 		return "redirect:adicionar/criarBovino";
@@ -427,11 +434,14 @@ public class GestaoController {
 	}
 
 	@RequestMapping(value = "/morte", method = RequestMethod.POST)
-	public ModelAndView salvarMorte(@Validated Morte morte, BindingResult result, RedirectAttributes attributes) {
+	public ModelAndView salvarMorte(@Validated Morte morte, BindingResult result, RedirectAttributes attributes,String outras) {
 		if (result.hasErrors()) {
 			return adicionarMorte(morte);
 		}
-
+			
+		if("outras".equals(morte.getCausa())) {
+			morte.setCausa(outras);
+		}
 		gestaoClient.salvarMorte(morte);
 		attributes.addFlashAttribute("mensagem", "Morte salva com sucesso!");
 
@@ -578,8 +588,15 @@ public class GestaoController {
 		if (result.hasErrors()) {
 			return adicionarInseminacao(i);
 		}
+		if("false".equals(i.getMonta())) {
+			List<Inseminador> inseminador = gestaoClient.listarInseminador();
+			i.setInseminador(inseminador.get(0));
+		}
+		
+		
+		
 
-		gestaoClient.salvarInseminacao(i);
+		gestaoClient.salvarInseminacao(i.getMatriz(),i);
 		attributes.addFlashAttribute("mensagem", "Inseminação salva com sucesso!");
 		return new ModelAndView("redirect:adicionar/inseminacao");
 	}
@@ -665,16 +682,16 @@ public class GestaoController {
 		return bovinos;
 	}
 
-	public List<Inseminacao> todasInseminacao(List<Inseminacao> inseminacoes) {
-
-		Bovino bovino;
-		for (int i = 0; i < inseminacoes.size(); i++) {
-			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(inseminacoes.get(i).getMatriz()));
-			inseminacoes.get(i).setMatriz(bovino.getNomeBovino());
-		}
-
-		return inseminacoes;
-	}
+//	public List<Inseminacao> todasInseminacao(List<Inseminacao> inseminacoes) {
+//
+//		Bovino bovino;
+//		for (int i = 0; i < inseminacoes.size(); i++) {
+//			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(inseminacoes.get(i).getMatriz()));
+//			inseminacoes.get(i).setMatriz(bovino.getNomeBovino());
+//		}
+//
+//		return inseminacoes;
+//	}
 
 	public List<DiagnosticoGestacao> todosDG(List<DiagnosticoGestacao> dg) {
 
@@ -716,11 +733,7 @@ public class GestaoController {
 			bovino = bovinoClient.listarUm(Long.parseLong(desmama.get(i).getIdBovino()));
 			desmama.get(i).setIdBovino(bovino.getNomeBovino());
 		}
-		for (int i = 0; i < desmama.size(); i++) {
-			bovino = bovinoClient.listarUm(Long.parseLong(desmama.get(i).getIdFichaMatriz()));
-			desmama.get(i).setIdFichaMatriz(bovino.getNomeBovino());
-		}
-
+		
 		return desmama;
 	}
 
@@ -800,6 +813,12 @@ public class GestaoController {
 	public List<Proprietario> todosProprietariosBovino() {
 		List<Proprietario> proprietarios = bovinoClient.listarProprietarios();
 		return proprietarios;
+	}
+	
+	@ModelAttribute("todosInseminador")
+	public List<Inseminador> todosInseminador() {
+		List<Inseminador> inseminadores = gestaoClient.listarInseminador();
+		return inseminadores ;
 	}
 
 	@ModelAttribute("todasFazendasBovino")

@@ -18,9 +18,10 @@
 		</div>
 
 		<div class="container-fluid">
-			<form class="form-horizontal" method="POST" th:object="${desmama}" action="/gestao/desmama" th:action="@{/gestao/desmama}">
-			<div layout:include="layout/MensagemGeral"></div>
-    			<div layout:include="layout/MensagemErro"></div>
+			<form class="form-horizontal" method="POST" th:object="${desmama}"
+				action="/gestao/desmama" th:action="@{/gestao/desmama}">
+				<div layout:include="layout/MensagemGeral"></div>
+				<div layout:include="layout/MensagemErro"></div>
 
 
 
@@ -30,18 +31,17 @@
 							<div class="form-group">
 								<label for="descricao">Data de Desmama</label> <input
 									type="text" class="form-control" id="dataDaInseminacao"
-									name="dataDesmama" th:field="*{dataDesmama}"/>
+									name="dataDesmama" th:field="*{dataDesmama}" />
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label>Matriz</label> <select class="form-control"
-									name="idFichaMatriz">
-									<option th:each="bovino : ${todasMatriz}"
-										th:value="${bovino.idBovino}" th:text="${bovino.nomeBovino}"></option>
-								</select>
+								<label>Peso</label> <input type="text" class="form-control"
+									id="peso" name="peso"
+									th:field="*{peso}" />
+
 							</div>
 						</div>
 					</div>
