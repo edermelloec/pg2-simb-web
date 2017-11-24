@@ -39,26 +39,39 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label>Peso</label> <input type="text" class="form-control"
-									id="peso" name="peso"
-									th:field="*{peso}" />
+									id="peso" name="peso" th:field="*{peso}" />
 
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-3">
+				<div class="col-sm-3">
 						<div class="col-sm-8">
 							<div class="form-group">
 								<label>Bovino</label> <select class="form-control"
 									name="idBovino">
-									<option th:each="bovino : ${bovinos}"
+									<option th:each="bovino : ${bezerros}"
 										th:value="${bovino.idBovino}" th:text="${bovino.nomeBovino}"></option>
 								</select>
 							</div>
 						</div>
 					</div>
+					<div class="col-sm-6">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Matriz</label> <select class="form-control"
+									name="idMatriz">
+									<option th:each="tm : ${todasMatriz}"
+										th:value="${tm.idBovino}" th:text="${tm.nomeBovino}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
 				</div>
+				
+					
+				
 				<div class="col-sm-6">
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary">Salvar</button>

@@ -2,8 +2,8 @@ package com.pg2.simbweb.domain.matriz;
 
 public enum ResultadoEnum {
 
-	Cheia("Cheia"),
-	Vazia("Vazia");
+	Cheia("cheia"),
+	Vazia("vazia");
 
 	private String descricao;
 	

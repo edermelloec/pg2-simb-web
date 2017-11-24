@@ -12,7 +12,7 @@ public class DiagnosticoGestacao {
 	private String idFichaMatriz;
 
 	
-	private ResultadoEnum resultado;
+	private String resultado;
 
 	private String descricao;
 	
@@ -23,14 +23,17 @@ public class DiagnosticoGestacao {
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataResultado;
+
 	
-	
-	
-	@Override
-	public String toString() {
-		return "DiagnosticoGestacao [idFichaMatriz=" + idFichaMatriz + ", resultado=" + resultado + ", descricao="
-				+ descricao + ", dataInclusao=" + dataInclusao + ", dataResultado=" + dataResultado + "]";
+	public String getResultado() {
+		return resultado;
 	}
+
+
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
+	}
+
 
 	public Date getDataResultado() {
 		return dataResultado;
@@ -54,14 +57,6 @@ public class DiagnosticoGestacao {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public ResultadoEnum getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(ResultadoEnum resultado) {
-		this.resultado = resultado;
 	}
 
 	public String getIdFichaMatriz() {

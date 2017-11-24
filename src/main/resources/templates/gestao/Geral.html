@@ -135,6 +135,17 @@
 							<td class="table-pesq-bovino-col-center"
 								th:text="| ${d.fertilidade}%|"></td>
 						</tr>
+						<tr th:each="d : ${pesoDesmama}">
+							<td class="table-pesq-bovino-col-center">Peso Médio Desmama</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${d.fertilidade} Kgs|"></td>
+						</tr>
+						<tr th:each="d : ${idadeDesmama}">
+							<td class="table-pesq-bovino-col-center">Idade Média Desmama</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${d.fertilidade} Meses|"></td>
+						</tr>
+						
 						<tr th:each="a : ${abate}">
 							<td class="table-pesq-bovino-col-center">Abate</td>
 							<td class="table-pesq-bovino-col-center"

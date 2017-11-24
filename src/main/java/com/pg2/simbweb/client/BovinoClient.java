@@ -55,10 +55,20 @@ public class BovinoClient {
 			
 	}
 	
-public List<Bovino> listarPorNome(String nome, String tipoBusca){
+	public List<Bovino> listarPorNome(String nome, String tipoBusca){
 		
 		RequestEntity<Void> request = RequestEntity
 				.get(URI.create(URI_BASE+"/bovino/nome/"+nome+"/" +tipoBusca))
+				.build();
+		ResponseEntity<Bovino[]> response = restTemplate.exchange(request, Bovino[].class);
+		return Arrays.asList(response.getBody());
+			
+	}
+	
+	public List<Bovino> buscarBezerro(){
+		
+		RequestEntity<Void> request = RequestEntity
+				.get(URI.create(URI_BASE+"/bovino/bezerro"))
 				.build();
 		ResponseEntity<Bovino[]> response = restTemplate.exchange(request, Bovino[].class);
 		return Arrays.asList(response.getBody());

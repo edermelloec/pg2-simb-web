@@ -10,6 +10,8 @@ public class Desmama {
 	
 	private String idBovino;
 	
+	private String idMatriz;
+	
 	@NotNull(message = "Data da Desmama é obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataDesmama;
@@ -18,6 +20,17 @@ public class Desmama {
 	private Double peso;
 
 	
+	@Override
+	public String toString() {
+		return "Desmama [idBovino=" + idBovino + ", idMatriz=" + idMatriz + ", dataDesmama=" + dataDesmama + ", peso="
+				+ peso + "]";
+	}
+	public String getIdMatriz() {
+		return idMatriz;
+	}
+	public void setIdMatriz(String idMatriz) {
+		this.idMatriz = idMatriz;
+	}
 	public Double getPeso() {
 		return peso;
 	}

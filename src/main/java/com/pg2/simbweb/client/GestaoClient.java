@@ -127,6 +127,24 @@ public class GestaoClient {
 		return Arrays.asList(response.getBody());
 
 	}
+	public List<Gestao> mediaPesoDesmama() {
+
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_BASE + "/peso/desmama")).build();
+
+		ResponseEntity<Gestao[]> response = restTemplate.exchange(request, Gestao[].class);
+
+		return Arrays.asList(response.getBody());
+
+	}
+	public List<Gestao> mediaIdadeDesmama() {
+
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_BASE + "/idade/desmama")).build();
+
+		ResponseEntity<Gestao[]> response = restTemplate.exchange(request, Gestao[].class);
+
+		return Arrays.asList(response.getBody());
+
+	}
 
 	public List<Gestao> mortalidadeTodos() {
 

@@ -93,6 +93,9 @@ public class GestaoController {
 		mv.addObject("motalidadeAdulto", gc.mortalidadeAdulto());
 
 		mv.addObject("desmama", gc.desmama());
+		mv.addObject("pesoDesmama",gc.mediaPesoDesmama());
+		mv.addObject("idadeDesmama",gc.mediaIdadeDesmama());
+		
 		mv.addObject("abate", gc.abate());
 
 		return mv;
@@ -123,7 +126,7 @@ public class GestaoController {
 		if (result.hasErrors()) {
 			return adicionarDesmama(desmama);
 		}
-
+		System.out.println(desmama.toString());
 		gestaoClient.salvarDesmama(desmama);
 		attributes.addFlashAttribute("mensagem", "Desmama salva com sucesso!");
 		return new ModelAndView("redirect:adicionar/desmama");
@@ -233,22 +236,19 @@ public class GestaoController {
 		return mv;
 	}
 
-//	@RequestMapping(value = "/listar/inseminacao", method = RequestMethod.GET)
-//	public ModelAndView listaInseminacao(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
-//		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao, tipoBusca);
-//		for (int i = 0; i < inseminacoes.size(); i++) {
-//			if (inseminacoes.get(i).getMatriz() == null) {
-//				inseminacoes.get(i).setMatriz("-1");
-//			}
-//			if (inseminacoes.get(i).getPrevisaoParto() == null) {
-//				inseminacoes.get(i).setPrevisaoParto(new Date());
-//			}
-//		}
-//		ModelAndView mv = new ModelAndView("gestao/listarInseminacao");
-//		mv.addObject("inseminacoes", todasInseminacao(inseminacoes));
-//
-//		return mv;
-//	}
+	@RequestMapping(value = "/listar/inseminacao", method = RequestMethod.GET)
+	public ModelAndView listaInseminacao(@RequestParam(defaultValue = "todos") String descricao, String tipoBusca) {
+		List<Inseminacao> inseminacoes = gestaoClient.listarInseminacao(descricao, tipoBusca);
+		for (int i = 0; i < inseminacoes.size(); i++) {
+			if (inseminacoes.get(i).getPrevisaoParto() == null) {
+				inseminacoes.get(i).setPrevisaoParto(new Date());
+			}
+		}
+		ModelAndView mv = new ModelAndView("gestao/listarInseminacao");
+		mv.addObject("inseminacoes", inseminacoes);
+
+		return mv;
+	}
 
 	@RequestMapping(value = "/listar/gestacao", method = RequestMethod.GET)
 	public ModelAndView listaDiagnosticoGestacao(@RequestParam(defaultValue = "todos") String descricao,
@@ -678,6 +678,12 @@ public class GestaoController {
 	@ModelAttribute("bovinos")
 	public List<Bovino> todosBovinos() {
 		List<Bovino> bovinos = bovinoClient.listarPorNome("todos", "nome");
+
+		return bovinos;
+	}
+	@ModelAttribute("bezerros")
+	public List<Bovino> todosBezerros() {
+		List<Bovino> bovinos = bovinoClient.buscarBezerro();
 
 		return bovinos;
 	}

@@ -39,12 +39,11 @@
 							<div class="form-group">
 
 								<select class="form-control" name="tipoBusca">
-									<option value="nomeMatriz">Nome Matriz</option>
 									<option value="nomeTouro">Nome Touro</option>
 									<option value="dataInseminacao">Data Inseminação</option>
 									<option value="dataPrevisaoParto">Data Previsão de Parto</option>
 									<option value="tipo">Tipo</option>
-									<option value="funcionario">Funcionário</option>
+									<option value="funcionario">Inseminador</option>
 								</select>
 
 							</div>
@@ -75,9 +74,9 @@
 							<th class="table-pesq-bovino-col-center">Data Previsão do
 								Parto</th>
 							<th class="table-pesq-bovino-col-center">Tipo</th>
-							<th class="table-pesq-bovino-col-center">Funcionario</th>
+							<th class="table-pesq-bovino-col-center">Inseminador</th>
 							<th class="table-pesq-bovino-col-center">Touro</th>
-							<th class="table-pesq-bovino-col-center">Matriz</th>
+							
 						</tr>
 					</thead>
 					<tbody>
@@ -89,15 +88,13 @@
 								th:text="${#dates.format(ins.previsaoParto, 'dd/MM/yyyy')}"></td>
 							<td class="table-pesq-bovino-col-center"
 								th:text="${ins.monta} ? 'Monta' : 'Inseminaçao' "></td>
-							<td class="table-pesq-bovino-col-center" th:switch="${ins.imei}">
-								<p th:case="'354983059791193'">Sebastiao</p>
-								<p th:case="'123456789'">Joao</p>
-								<p th:case="*">
-									<b>Sem Registro</b>
-								</p>
-							</td>
+							
+							<td class="table-pesq-bovino-col-center"
+								th:text="${ins.inseminador} ? ${ins.inseminador.nomeInseminador} : 'Monta' "></td>
+							
+							<!-- <td class="table-pesq-bovino-col-center" th:text="${ins.inseminador.nomeInseminador}"></td> -->
 							<td class="table-pesq-bovino-col-center" th:text="${ins.touro}"></td>
-							<td class="table-pesq-bovino-col-center" th:text="${ins.matriz}"></td>
+							
 
 
 
