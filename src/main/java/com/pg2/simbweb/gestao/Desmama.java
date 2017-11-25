@@ -8,9 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Desmama {
 	
+	@NotNull(message = "Bezerro é obrigatório")
 	private String idBovino;
 	
-	private String idMatriz;
+	private String idFichaMatriz;
 	
 	@NotNull(message = "Data da Desmama é obrigatório")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -20,16 +21,12 @@ public class Desmama {
 	private Double peso;
 
 	
-	@Override
-	public String toString() {
-		return "Desmama [idBovino=" + idBovino + ", idMatriz=" + idMatriz + ", dataDesmama=" + dataDesmama + ", peso="
-				+ peso + "]";
+
+	public String getIdFichaMatriz() {
+		return idFichaMatriz;
 	}
-	public String getIdMatriz() {
-		return idMatriz;
-	}
-	public void setIdMatriz(String idMatriz) {
-		this.idMatriz = idMatriz;
+	public void setIdFichaMatriz(String idFichaMatriz) {
+		this.idFichaMatriz = idFichaMatriz;
 	}
 	public Double getPeso() {
 		return peso;

@@ -71,6 +71,7 @@
 
 							<th class="table-pesq-bovino-col-center">Data Desmama</th>
 							<th class="table-pesq-bovino-col-center">Bovino</th>
+							<th class="table-pesq-bovino-col-center">Peso</th>
 							<th class="table-pesq-bovino-col-center">Matriz</th>
 
 						</tr>
@@ -81,6 +82,7 @@
 							<td class="table-pesq-bovino-col-center"
 								th:text="${#dates.format(d.dataDesmama, 'dd/MM/yyyy')}"></td>
 							<td class="table-pesq-bovino-col-center" th:text="${d.idBovino}"></td>
+							<td class="table-pesq-bovino-col-center" th:text="${d.peso}"></td>
 							<td class="table-pesq-bovino-col-center"
 								th:text="${d.idFichaMatriz}"></td>
 						</tr>

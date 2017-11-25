@@ -93,9 +93,9 @@ public class GestaoController {
 		mv.addObject("motalidadeAdulto", gc.mortalidadeAdulto());
 
 		mv.addObject("desmama", gc.desmama());
-		mv.addObject("pesoDesmama",gc.mediaPesoDesmama());
-		mv.addObject("idadeDesmama",gc.mediaIdadeDesmama());
-		
+		mv.addObject("pesoDesmama", gc.mediaPesoDesmama());
+		mv.addObject("idadeDesmama", gc.mediaIdadeDesmama());
+
 		mv.addObject("abate", gc.abate());
 
 		return mv;
@@ -216,10 +216,10 @@ public class GestaoController {
 	@RequestMapping(value = "/salvarDiagnostico", method = RequestMethod.POST)
 	public ModelAndView salvarDiagnostico(@Valid DiagnosticoGestacao diagnosticoGestacao,
 			RedirectAttributes attributes) {
-		
+
 		Bovino bovino = bovinoClient.listarUm(Long.valueOf(diagnosticoGestacao.getIdFichaMatriz()));
 		diagnosticoGestacao.setIdFichaMatriz(String.valueOf(bovino.getFichaMatriz().getIdFichaMatriz()));
-		
+
 		gestaoClient.salvarDiagnosticoGestacao(diagnosticoGestacao);
 		attributes.addFlashAttribute("mensagem", "Diagnostico salvo com sucesso!");
 		return new ModelAndView("redirect:adicionar/gestacao");
@@ -395,8 +395,7 @@ public class GestaoController {
 	public String salvarParto(@Validated Parto p, RedirectAttributes attributes) {
 		Bovino bovino = bovinoClient.listarUm(Long.valueOf(p.getIdFichaMatriz()));
 		p.setIdFichaMatriz(String.valueOf(bovino.getFichaMatriz().getIdFichaMatriz()));
-		
-		
+
 		gestaoClient.salvarParto(p);
 		attributes.addFlashAttribute("mensagem", "Parto salvo com sucesso!");
 		return "redirect:adicionar/criarBovino";
@@ -434,12 +433,13 @@ public class GestaoController {
 	}
 
 	@RequestMapping(value = "/morte", method = RequestMethod.POST)
-	public ModelAndView salvarMorte(@Validated Morte morte, BindingResult result, RedirectAttributes attributes,String outras) {
+	public ModelAndView salvarMorte(@Validated Morte morte, BindingResult result, RedirectAttributes attributes,
+			String outras) {
 		if (result.hasErrors()) {
 			return adicionarMorte(morte);
 		}
-			
-		if("outras".equals(morte.getCausa())) {
+
+		if ("outras".equals(morte.getCausa())) {
 			morte.setCausa(outras);
 		}
 		gestaoClient.salvarMorte(morte);
@@ -588,71 +588,68 @@ public class GestaoController {
 		if (result.hasErrors()) {
 			return adicionarInseminacao(i);
 		}
-		if("false".equals(i.getMonta())) {
+		if ("false".equals(i.getMonta())) {
 			List<Inseminador> inseminador = gestaoClient.listarInseminador();
 			i.setInseminador(inseminador.get(0));
 		}
-		
-		
-		
 
-		gestaoClient.salvarInseminacao(i.getMatriz(),i);
+		gestaoClient.salvarInseminacao(i.getMatriz(), i);
 		attributes.addFlashAttribute("mensagem", "Inseminação salva com sucesso!");
 		return new ModelAndView("redirect:adicionar/inseminacao");
 	}
 
-//	@RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
-//	public void buscarBovinoPorMae() {
-//		//Peso peso;
-//		Ecc ecc;
-//		int min = 7;
-//		
-//		int peso1 = 30;
-//		String data1 = "01-01-2017";
-//		//for (int k = 1; k <= 9; k++) {
-//			for (int j = 1; j <= 4; j++) {
-//				for (int i = 26; i <= 55; i++) {
-//					
-//					//peso = new Peso();
-//					ecc = new Ecc();
-////					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-//					Random gerador = new Random();
-////
-////					Date data;
-//					//try {
-//						//data = formato.parse(data1);
-//						//peso.setDataPesagem(data);
-//
-//						peso1 = gerador.nextInt((9) + 1);
-//						ecc.setEscore(peso1);
-//						gestaoClient.salvarEcc(ecc, i);
-//						//peso.setPeso(Double.valueOf(String.valueOf(peso1)));
-//						//gestaoClient.salvarPesagem(peso, i);
-//					//} catch (ParseException e) {
-//						// TODO Auto-generated catch block
-//						//e.printStackTrace();
-//					//}
-//
-//				}
-////				min = min + 7;
-////				
-////				if ("01".equals(data1.substring(0, 2))) {
-////					data1 = "08-" + data1.substring(3, data1.length());
-////
-////				} else if ("08".equals(data1.substring(0, 2))) {
-////					data1 = "17-" + data1.substring(3, data1.length());
-////
-////				} else if ("17".equals(data1.substring(0, 2))) {
-////					data1 = "27-" + data1.substring(3, data1.length());
-////				}
-//
-//			}
-//			//int mes= k+1;
-//			//data1 ="01-0"+mes+"-2017";
-//			
-//		//}
-//
-//	}
+	// @RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
+	// public void buscarBovinoPorMae() {
+	// //Peso peso;
+	// Ecc ecc;
+	// int min = 7;
+	//
+	// int peso1 = 30;
+	// String data1 = "01-01-2017";
+	// //for (int k = 1; k <= 9; k++) {
+	// for (int j = 1; j <= 4; j++) {
+	// for (int i = 26; i <= 55; i++) {
+	//
+	// //peso = new Peso();
+	// ecc = new Ecc();
+	//// SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+	// Random gerador = new Random();
+	////
+	//// Date data;
+	// //try {
+	// //data = formato.parse(data1);
+	// //peso.setDataPesagem(data);
+	//
+	// peso1 = gerador.nextInt((9) + 1);
+	// ecc.setEscore(peso1);
+	// gestaoClient.salvarEcc(ecc, i);
+	// //peso.setPeso(Double.valueOf(String.valueOf(peso1)));
+	// //gestaoClient.salvarPesagem(peso, i);
+	// //} catch (ParseException e) {
+	// // TODO Auto-generated catch block
+	// //e.printStackTrace();
+	// //}
+	//
+	// }
+	//// min = min + 7;
+	////
+	//// if ("01".equals(data1.substring(0, 2))) {
+	//// data1 = "08-" + data1.substring(3, data1.length());
+	////
+	//// } else if ("08".equals(data1.substring(0, 2))) {
+	//// data1 = "17-" + data1.substring(3, data1.length());
+	////
+	//// } else if ("17".equals(data1.substring(0, 2))) {
+	//// data1 = "27-" + data1.substring(3, data1.length());
+	//// }
+	//
+	// }
+	// //int mes= k+1;
+	// //data1 ="01-0"+mes+"-2017";
+	//
+	// //}
+	//
+	// }
 
 	// ------------------------------ MODELATRRIBUTE
 	// --------------------------------------------------------
@@ -681,6 +678,7 @@ public class GestaoController {
 
 		return bovinos;
 	}
+
 	@ModelAttribute("bezerros")
 	public List<Bovino> todosBezerros() {
 		List<Bovino> bovinos = bovinoClient.buscarBezerro();
@@ -688,16 +686,17 @@ public class GestaoController {
 		return bovinos;
 	}
 
-//	public List<Inseminacao> todasInseminacao(List<Inseminacao> inseminacoes) {
-//
-//		Bovino bovino;
-//		for (int i = 0; i < inseminacoes.size(); i++) {
-//			bovino = gestaoClient.buscaNomeMatriz(Long.parseLong(inseminacoes.get(i).getMatriz()));
-//			inseminacoes.get(i).setMatriz(bovino.getNomeBovino());
-//		}
-//
-//		return inseminacoes;
-//	}
+	// public List<Inseminacao> todasInseminacao(List<Inseminacao> inseminacoes) {
+	//
+	// Bovino bovino;
+	// for (int i = 0; i < inseminacoes.size(); i++) {
+	// bovino =
+	// gestaoClient.buscaNomeMatriz(Long.parseLong(inseminacoes.get(i).getMatriz()));
+	// inseminacoes.get(i).setMatriz(bovino.getNomeBovino());
+	// }
+	//
+	// return inseminacoes;
+	// }
 
 	public List<DiagnosticoGestacao> todosDG(List<DiagnosticoGestacao> dg) {
 
@@ -739,7 +738,11 @@ public class GestaoController {
 			bovino = bovinoClient.listarUm(Long.parseLong(desmama.get(i).getIdBovino()));
 			desmama.get(i).setIdBovino(bovino.getNomeBovino());
 		}
-		
+		for (int i = 0; i < desmama.size(); i++) {
+			bovino = bovinoClient.listarUm(Long.parseLong(desmama.get(i).getIdFichaMatriz()));
+			desmama.get(i).setIdFichaMatriz(bovino.getNomeBovino());
+		}
+
 		return desmama;
 	}
 
@@ -820,11 +823,11 @@ public class GestaoController {
 		List<Proprietario> proprietarios = bovinoClient.listarProprietarios();
 		return proprietarios;
 	}
-	
+
 	@ModelAttribute("todosInseminador")
 	public List<Inseminador> todosInseminador() {
 		List<Inseminador> inseminadores = gestaoClient.listarInseminador();
-		return inseminadores ;
+		return inseminadores;
 	}
 
 	@ModelAttribute("todasFazendasBovino")
