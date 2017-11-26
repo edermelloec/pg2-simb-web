@@ -22,6 +22,7 @@ import com.pg2.simbweb.domain.matriz.FichaMatriz;
 import com.pg2.simbweb.domain.matriz.Inseminacao;
 import com.pg2.simbweb.domain.matriz.Inseminador;
 import com.pg2.simbweb.domain.matriz.Parto;
+import com.pg2.simbweb.domain.matriz.ResultadoEnum;
 import com.pg2.simbweb.domain.matriz.TrueAndFalse;
 import com.pg2.simbweb.gestao.Abatido;
 import com.pg2.simbweb.gestao.Desmama;
@@ -259,6 +260,14 @@ public class GestaoClient {
 		return Arrays.asList(response.getBody());
 
 	}
+	
+	public List<Bovino> listarMatrizInseminada() {
+
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_ + "/bovino/inseminada")).build();
+		ResponseEntity<Bovino[]> response = restTemplate.exchange(request, Bovino[].class);
+		return Arrays.asList(response.getBody());
+
+	}
 
 	public List<Bovino> listarTouro() {
 
@@ -293,6 +302,35 @@ public class GestaoClient {
 		return Arrays.asList(response.getBody());
 
 	}
+	
+	public List<Inseminacao> resultadoInseminacao(Long id) {
+
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_+"/inseminacao/"+id)).build();
+
+		ResponseEntity<Inseminacao[]> response = restTemplate.exchange(request, Inseminacao[].class);
+
+		return Arrays.asList(response.getBody());
+
+	}
+	public List<Parto> partoInseminacao(Long id) {
+
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_+"/parto/"+id)).build();
+
+		ResponseEntity<Parto[]> response = restTemplate.exchange(request, Parto[].class);
+
+		return Arrays.asList(response.getBody());
+
+	}
+	public List<DiagnosticoGestacao> diagnosticoPorInseminacao(Long id) {
+
+		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_RESULTADO+"/inseminacao/"+id)).build();
+
+		ResponseEntity<DiagnosticoGestacao[]> response = restTemplate.exchange(request, DiagnosticoGestacao[].class);
+
+		return Arrays.asList(response.getBody());
+
+	}
+	
 	public List<DiagnosticoGestacao> listarDG(String busca,String tipoBusca) {
 
 		RequestEntity<Void> request = RequestEntity.get(URI.create(URI_RESULTADO+"/"+busca+"/"+tipoBusca)).build();

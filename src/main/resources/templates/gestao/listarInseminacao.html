@@ -76,6 +76,7 @@
 							<th class="table-pesq-bovino-col-center">Tipo</th>
 							<th class="table-pesq-bovino-col-center">Inseminador</th>
 							<th class="table-pesq-bovino-col-center">Touro</th>
+							<th class="table-pesq-bovino-col-center">Resultados</th>
 							
 						</tr>
 					</thead>
@@ -91,10 +92,13 @@
 							
 							<td class="table-pesq-bovino-col-center"
 								th:text="${ins.inseminador} ? ${ins.inseminador.nomeInseminador} : 'Monta' "></td>
-							
-							<!-- <td class="table-pesq-bovino-col-center" th:text="${ins.inseminador.nomeInseminador}"></td> -->
 							<td class="table-pesq-bovino-col-center" th:text="${ins.touro}"></td>
-							
+							<td class="table-pesq-bovino-col-center"><a
+								class="btn btn-default btn-xs"
+								th:href="@{/gestao/resultado/inseminacao/{codigo}(codigo=${ins.idInseminacao})}">
+									<i class="fa  fa-plus-circle"></i> <span
+									class="hidden-xs  hidden-sm">Adicionar</span>
+							</a></td>
 
 
 

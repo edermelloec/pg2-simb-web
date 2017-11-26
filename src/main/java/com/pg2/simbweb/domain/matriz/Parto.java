@@ -16,7 +16,25 @@ public class Parto {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataParto;
 	
+	private Long idInseminacao;
+
 	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Parto [status=" + status + ", descricao=" + descricao + ", idFichaMatriz=" + idFichaMatriz
+				+ ", dataParto=" + dataParto + ", idInseminacao=" + idInseminacao + "]";
+	}
+
+	public Long getIdInseminacao() {
+		return idInseminacao;
+	}
+
+	public void setIdInseminacao(Long idInseminacao) {
+		this.idInseminacao = idInseminacao;
+	}
 
 	public Date getDataParto() {
 		return dataParto;

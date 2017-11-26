@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -208,8 +208,9 @@ public class GestaoController {
 	public ModelAndView adicionarGestacao(DiagnosticoGestacao diagnosticoGestacao) {
 		Calendar cal = Calendar.getInstance();
 		diagnosticoGestacao.setDataResultado(cal.getTime());
+		List<Bovino> matriz = gestaoClient.listarMatrizInseminada();
 		ModelAndView mv = new ModelAndView("gestao/salvardiagnosticogestacao");
-
+		mv.addObject("matrizInseminada", matriz);
 		return mv;
 	}
 
@@ -217,8 +218,14 @@ public class GestaoController {
 	public ModelAndView salvarDiagnostico(@Valid DiagnosticoGestacao diagnosticoGestacao,
 			RedirectAttributes attributes) {
 
-		Bovino bovino = bovinoClient.listarUm(Long.valueOf(diagnosticoGestacao.getIdFichaMatriz()));
-		diagnosticoGestacao.setIdFichaMatriz(String.valueOf(bovino.getFichaMatriz().getIdFichaMatriz()));
+		List<Bovino> matriz = gestaoClient.listarMatrizInseminada();
+		for (int i = 0; i < matriz.size(); i++) {
+			if (matriz.get(i).getFichaMatriz().getIdFichaMatriz() == Long
+					.parseLong(diagnosticoGestacao.getIdFichaMatriz())) {
+				diagnosticoGestacao
+						.setIdInseminacao(matriz.get(i).getFichaMatriz().getInseminacao().get(0).getIdInseminacao());
+			}
+		}
 
 		gestaoClient.salvarDiagnosticoGestacao(diagnosticoGestacao);
 		attributes.addFlashAttribute("mensagem", "Diagnostico salvo com sucesso!");
@@ -247,6 +254,31 @@ public class GestaoController {
 		ModelAndView mv = new ModelAndView("gestao/listarInseminacao");
 		mv.addObject("inseminacoes", inseminacoes);
 
+		return mv;
+	}
+
+	@RequestMapping("/resultado/inseminacao/{codigo}")
+	public ModelAndView resultadoInseminacao(@PathVariable("codigo") Long id) {
+
+		List<Inseminacao> inseminacao = gestaoClient.resultadoInseminacao(id);
+
+		List<DiagnosticoGestacao> diagnosticoGestacao = gestaoClient.diagnosticoPorInseminacao(id);
+
+		// verificar se sao nulos
+		if (diagnosticoGestacao.size()>0) {
+			
+			diagnosticoGestacao.get(0).setIdFichaMatriz(gestaoClient
+					.buscaNomeMatriz(Long.parseLong(diagnosticoGestacao.get(0).getIdFichaMatriz())).getNomeBovino());
+		
+		}
+		
+		List<Parto> parto = gestaoClient.partoInseminacao(id);
+		
+		
+		ModelAndView mv = new ModelAndView("gestao/resultadoInseminacao");
+		mv.addObject("inseminacao", inseminacao);
+		mv.addObject("diagGestacao", diagnosticoGestacao);
+		mv.addObject("parto", parto);
 		return mv;
 	}
 
@@ -386,8 +418,10 @@ public class GestaoController {
 	public ModelAndView adicionarParto(Parto parto) {
 		Calendar cal = Calendar.getInstance();
 		parto.setDataParto(cal.getTime());
-		ModelAndView mv = new ModelAndView("gestao/SalvarParto");
 
+		List<Bovino> matriz = gestaoClient.listarMatrizInseminada();
+		ModelAndView mv = new ModelAndView("gestao/SalvarParto");
+		mv.addObject("matrizInseminada", matriz);
 		return mv;
 	}
 
@@ -395,6 +429,15 @@ public class GestaoController {
 	public String salvarParto(@Validated Parto p, RedirectAttributes attributes) {
 		Bovino bovino = bovinoClient.listarUm(Long.valueOf(p.getIdFichaMatriz()));
 		p.setIdFichaMatriz(String.valueOf(bovino.getFichaMatriz().getIdFichaMatriz()));
+
+		List<Bovino> matriz = gestaoClient.listarMatrizInseminada();
+		for (int i = 0; i < matriz.size(); i++) {
+			if (matriz.get(i).getFichaMatriz().getIdFichaMatriz() == Long.parseLong(p.getIdFichaMatriz())) {
+				p.setIdInseminacao(matriz.get(i).getFichaMatriz().getInseminacao().get(0).getIdInseminacao());
+			}
+		}
+
+		System.out.println(p.getIdFichaMatriz() + " - " + p.getIdInseminacao());
 
 		gestaoClient.salvarParto(p);
 		attributes.addFlashAttribute("mensagem", "Parto salvo com sucesso!");
@@ -659,6 +702,12 @@ public class GestaoController {
 
 		return matriz;
 	}
+
+	// @ModelAttribute("matrizInseminada")
+	// public List<Bovino> todosMatrizInseminada() {
+	// List<Bovino> matriz = gestaoClient.listarMatrizInseminada();
+	// return matriz;
+	// }
 
 	@ModelAttribute("todosTouro")
 	public List<Bovino> todosTouro() {

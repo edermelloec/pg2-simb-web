@@ -16,6 +16,8 @@ public class DiagnosticoGestacao {
 
 	private String descricao;
 	
+	private Long idInseminacao;
+	
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInclusao;
@@ -25,6 +27,26 @@ public class DiagnosticoGestacao {
 	private Date dataResultado;
 
 	
+	
+	
+	@Override
+	public String toString() {
+		return "DiagnosticoGestacao [idFichaMatriz=" + idFichaMatriz + ", resultado=" + resultado + ", descricao="
+				+ descricao + ", idInseminacao=" + idInseminacao + ", dataInclusao=" + dataInclusao + ", dataResultado="
+				+ dataResultado + "]";
+	}
+
+
+	public Long getIdInseminacao() {
+		return idInseminacao;
+	}
+
+
+	public void setIdInseminacao(Long idInseminacao) {
+		this.idInseminacao = idInseminacao;
+	}
+
+
 	public String getResultado() {
 		return resultado;
 	}

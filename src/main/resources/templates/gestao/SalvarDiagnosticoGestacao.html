@@ -32,9 +32,11 @@
 							<div class="form-group">
 								<label>Matriz</label> <select class="form-control"
 									name="idFichaMatriz">
-									<option th:each="bovino : ${todasMatriz}"
-										th:value="${bovino.idBovino}" th:text="${bovino.nomeBovino}"></option>
+									<option th:each="bovino : ${matrizInseminada}"
+										th:value="${bovino.fichaMatriz.idFichaMatriz}" th:text="${bovino.nomeBovino}"></option>
 								</select>
+								
+								
 							</div>
 						</div>
 					</div>
