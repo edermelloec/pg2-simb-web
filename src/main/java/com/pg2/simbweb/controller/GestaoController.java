@@ -126,7 +126,7 @@ public class GestaoController {
 		if (result.hasErrors()) {
 			return adicionarDesmama(desmama);
 		}
-		System.out.println(desmama.toString());
+		
 		gestaoClient.salvarDesmama(desmama);
 		attributes.addFlashAttribute("mensagem", "Desmama salva com sucesso!");
 		return new ModelAndView("redirect:adicionar/desmama");
@@ -265,16 +265,15 @@ public class GestaoController {
 		List<DiagnosticoGestacao> diagnosticoGestacao = gestaoClient.diagnosticoPorInseminacao(id);
 
 		// verificar se sao nulos
-		if (diagnosticoGestacao.size()>0) {
-			
+		if (diagnosticoGestacao.size() > 0) {
+
 			diagnosticoGestacao.get(0).setIdFichaMatriz(gestaoClient
 					.buscaNomeMatriz(Long.parseLong(diagnosticoGestacao.get(0).getIdFichaMatriz())).getNomeBovino());
-		
+
 		}
-		
+
 		List<Parto> parto = gestaoClient.partoInseminacao(id);
-		
-		
+
 		ModelAndView mv = new ModelAndView("gestao/resultadoInseminacao");
 		mv.addObject("inseminacao", inseminacao);
 		mv.addObject("diagGestacao", diagnosticoGestacao);
@@ -437,7 +436,7 @@ public class GestaoController {
 			}
 		}
 
-		System.out.println(p.getIdFichaMatriz() + " - " + p.getIdInseminacao());
+		
 
 		gestaoClient.salvarParto(p);
 		attributes.addFlashAttribute("mensagem", "Parto salvo com sucesso!");
@@ -641,58 +640,58 @@ public class GestaoController {
 		return new ModelAndView("redirect:adicionar/inseminacao");
 	}
 
-	// @RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
-	// public void buscarBovinoPorMae() {
-	// //Peso peso;
-	// Ecc ecc;
-	// int min = 7;
-	//
-	// int peso1 = 30;
-	// String data1 = "01-01-2017";
-	// //for (int k = 1; k <= 9; k++) {
-	// for (int j = 1; j <= 4; j++) {
-	// for (int i = 26; i <= 55; i++) {
-	//
-	// //peso = new Peso();
-	// ecc = new Ecc();
-	//// SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-	// Random gerador = new Random();
-	////
-	//// Date data;
-	// //try {
-	// //data = formato.parse(data1);
-	// //peso.setDataPesagem(data);
-	//
-	// peso1 = gerador.nextInt((9) + 1);
-	// ecc.setEscore(peso1);
-	// gestaoClient.salvarEcc(ecc, i);
-	// //peso.setPeso(Double.valueOf(String.valueOf(peso1)));
-	// //gestaoClient.salvarPesagem(peso, i);
-	// //} catch (ParseException e) {
-	// // TODO Auto-generated catch block
-	// //e.printStackTrace();
-	// //}
-	//
-	// }
-	//// min = min + 7;
-	////
-	//// if ("01".equals(data1.substring(0, 2))) {
-	//// data1 = "08-" + data1.substring(3, data1.length());
-	////
-	//// } else if ("08".equals(data1.substring(0, 2))) {
-	//// data1 = "17-" + data1.substring(3, data1.length());
-	////
-	//// } else if ("17".equals(data1.substring(0, 2))) {
-	//// data1 = "27-" + data1.substring(3, data1.length());
-	//// }
-	//
-	// }
-	// //int mes= k+1;
-	// //data1 ="01-0"+mes+"-2017";
-	//
-	// //}
-	//
-	// }
+	@RequestMapping(value = "/peso/inserir", method = RequestMethod.GET)
+	public void buscarBovinoPorMae() {
+		Peso peso;
+		Ecc ecc;
+		int min = 7;
+
+		int peso1 = 30;
+		String data1 = "07-10-2017";
+//		for (int k = 1; k <= 9; k++) {
+//			for (int j = 1; j <= 4; j++) {
+				for (int i = 9; i <= 28; i++) {
+
+					//peso = new Peso();
+					ecc = new Ecc();
+					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+					Random gerador = new Random();
+
+					Date data;
+					try {
+						data = formato.parse(data1);
+						//peso.setDataPesagem(data);
+
+						peso1 = gerador.nextInt(8)+ 1;
+						ecc.setEscore(peso1);
+						gestaoClient.salvarEcc(ecc, i);
+						//peso.setPeso(Double.valueOf(String.valueOf(peso1)));
+						//gestaoClient.salvarPesagem(peso, i);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+				min = min + 7;
+
+				if ("01".equals(data1.substring(0, 2))) {
+					data1 = "08-" + data1.substring(3, data1.length());
+
+				} else if ("08".equals(data1.substring(0, 2))) {
+					data1 = "17-" + data1.substring(3, data1.length());
+
+				} else if ("17".equals(data1.substring(0, 2))) {
+					data1 = "27-" + data1.substring(3, data1.length());
+				}
+
+//			}
+//			int mes = k + 1;
+//			data1 = "01-0" + mes + "-2017";
+//
+//		}
+
+	}
 
 	// ------------------------------ MODELATRRIBUTE
 	// --------------------------------------------------------
