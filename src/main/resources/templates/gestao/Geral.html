@@ -59,17 +59,18 @@
 							<td class="table-pesq-bovino-col-center"
 								th:text="| ${ft.fertilidade}%|"></td>
 						</tr>
+						<tr th:each="fv : ${fertilidadeNovi}">
+							<td class="table-pesq-bovino-col-center">Fertilidade novilha</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${fv.fertilidade}%|"></td>
+						</tr>
 						<tr th:each="fp : ${fertilidadePrimi}">
 							<td class="table-pesq-bovino-col-center">Fertilidade
 								primíparas</td>
 							<td class="table-pesq-bovino-col-center"
 								th:text="| ${fp.fertilidade}%|"></td>
 						</tr>
-						<tr th:each="fv : ${fertilidadeNovi}">
-							<td class="table-pesq-bovino-col-center">Fertilidade novilha</td>
-							<td class="table-pesq-bovino-col-center"
-								th:text="| ${fv.fertilidade}%|"></td>
-						</tr>
+						
 						<tr th:each="fm : ${fertilidadeMult}">
 							<td class="table-pesq-bovino-col-center">Fertilidade
 								multíparas</td>
@@ -82,16 +83,17 @@
 							<td class="table-pesq-bovino-col-center"
 								th:text="| ${nt.fertilidade}%|"></td>
 						</tr>
+						
+						<tr th:each="nn : ${natalidadeNovi}">
+							<td class="table-pesq-bovino-col-center">Natalidade novilha</td>
+							<td class="table-pesq-bovino-col-center"
+								th:text="| ${nn.fertilidade}%|"></td>
+						</tr>
 						<tr th:each="np : ${natalidadePrimi}">
 							<td class="table-pesq-bovino-col-center">Natalidade
 								primíparas</td>
 							<td class="table-pesq-bovino-col-center"
 								th:text="| ${np.fertilidade}%|"></td>
-						</tr>
-						<tr th:each="nn : ${natalidadeNovi}">
-							<td class="table-pesq-bovino-col-center">Natalidade novilha</td>
-							<td class="table-pesq-bovino-col-center"
-								th:text="| ${nn.fertilidade}%|"></td>
 						</tr>
 						<tr th:each="nm : ${natalidadeMult}">
 							<td class="table-pesq-bovino-col-center">Natalidade
