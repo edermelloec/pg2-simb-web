@@ -1,5 +1,6 @@
 package com.pg2.simbweb.controller;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import com.pg2.simbweb.client.TarefaClient;
 import com.pg2.simbweb.domain.bovino.Bovino;
 import com.pg2.simbweb.domain.bovino.Ecc;
 import com.pg2.simbweb.domain.bovino.Fazenda;
+import com.pg2.simbweb.domain.bovino.Gestao;
 import com.pg2.simbweb.domain.bovino.Pelagem;
 import com.pg2.simbweb.domain.bovino.Peso;
 import com.pg2.simbweb.domain.bovino.Proprietario;
@@ -75,13 +77,34 @@ public class GestaoController {
 		ModelAndView mv = new ModelAndView("gestao/Geral");
 
 		mv.addObject("touroVaca", gc.touroVaca());
-
-		mv.addObject("fertilidadeTotal", gc.fertilidadeTotal());
+		
+		Float total;
+		List<Gestao> gestao = gc.fertilidadeMult();
+		
+		total = Float.valueOf(String.valueOf(gestao.get(0).getFertilidade())); 
+		gestao = gc.fertilidadeNovi();
+		total = total + Float.valueOf(String.valueOf(gestao.get(0).getFertilidade())); 
+		
+		gestao = gc.fertilidadePrimi();
+		gestao.get(0).getFertilidade();
+		total = total + Float.valueOf(String.valueOf(gestao.get(0).getFertilidade()));
+		total = total/3f;
+		mv.addObject("fertilidadeTotal", total);
 		mv.addObject("fertilidadePrimi", gc.fertilidadePrimi());
 		mv.addObject("fertilidadeNovi", gc.fertilidadeNovi());
 		mv.addObject("fertilidadeMult", gc.fertilidadeMult());
+		
+		gestao = gc.natalidadeMult();
+		total = Float.valueOf(String.valueOf(gestao.get(0).getFertilidade())); 
+		gestao = gc.natalidadeNovi();
+		total = total + Float.valueOf(String.valueOf(gestao.get(0).getFertilidade())); 
+		
+		gestao = gc.natalidadePrimi();
+		gestao.get(0).getFertilidade();
+		total = total + Float.valueOf(String.valueOf(gestao.get(0).getFertilidade()));
+		total = total/3f;
 
-		mv.addObject("natalidadeTotal", gc.natalidadeTotal());
+		mv.addObject("natalidadeTotal", total);
 		mv.addObject("natalidadePrimi", gc.natalidadePrimi());
 		mv.addObject("natalidadeNovi", gc.natalidadeNovi());
 		mv.addObject("natalidadeMult", gc.natalidadeMult());
@@ -109,6 +132,7 @@ public class GestaoController {
 		GestaoClient gc = new GestaoClient();
 
 		ModelAndView mv = new ModelAndView("gestao/desmama");
+		
 		mv.addObject("idadeDesmama", gc.idadeDesmame(descricao));
 
 		return mv;

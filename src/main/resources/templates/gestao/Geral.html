@@ -57,7 +57,7 @@
 						<tr th:each="ft : ${fertilidadeTotal}">
 							<td class="table-pesq-bovino-col-center">Fertilidade total</td>
 							<td class="table-pesq-bovino-col-center"
-								th:text="| ${ft.fertilidade}%|"></td>
+								th:text="| ${ft}%|"></td>
 						</tr>
 						<tr th:each="fv : ${fertilidadeNovi}">
 							<td class="table-pesq-bovino-col-center">Fertilidade novilha</td>
@@ -81,7 +81,7 @@
 						<tr th:each="nt : ${natalidadeTotal}">
 							<td class="table-pesq-bovino-col-center">Natalidade total</td>
 							<td class="table-pesq-bovino-col-center"
-								th:text="| ${nt.fertilidade}%|"></td>
+								th:text="| ${nt}%|"></td>
 						</tr>
 						
 						<tr th:each="nn : ${natalidadeNovi}">
