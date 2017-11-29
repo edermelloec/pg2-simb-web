@@ -450,9 +450,7 @@ public class GestaoController {
 
 	@RequestMapping(value = "/salvarParto", method = RequestMethod.POST)
 	public String salvarParto(@Validated Parto p, RedirectAttributes attributes) {
-		Bovino bovino = bovinoClient.listarUm(Long.valueOf(p.getIdFichaMatriz()));
-		p.setIdFichaMatriz(String.valueOf(bovino.getFichaMatriz().getIdFichaMatriz()));
-
+		
 		List<Bovino> matriz = gestaoClient.listarMatrizInseminada();
 		for (int i = 0; i < matriz.size(); i++) {
 			if (matriz.get(i).getFichaMatriz().getIdFichaMatriz() == Long.parseLong(p.getIdFichaMatriz())) {
